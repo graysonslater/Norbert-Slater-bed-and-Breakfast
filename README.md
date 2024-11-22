@@ -53,7 +53,7 @@ Returns the information about the current user that is logged in.
 * Require Authentication: false
 * Request
   * Method: GET
-  * Route path: /user/:userId
+  * Route path: /users/:userId
   * Body: none
 
 * Successful Response when there is a logged in user
@@ -94,7 +94,7 @@ information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * Route path: /user/login
+  * Route path: /users/login
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -160,7 +160,7 @@ user's information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * Route path: /user/signup
+  * Route path: /users/signup
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -276,7 +276,7 @@ Returns all the spots owned (created) by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * Route path: /user/:userId/spots
+  * Route path: /users/:userId/spots
   * Body: none
 
 * Successful Response
@@ -381,7 +381,7 @@ Creates and returns a new spot.
 * Require Authentication: true
 * Request
   * Method: POST
-  * Route path: /spots/new
+  * Route path: /spots
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -623,7 +623,7 @@ Returns all the reviews written by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * Route path: /user/:userId/reviews
+  * Route path: /users/:userId/reviews
   * Body: none
 
 * Successful Response
@@ -935,7 +935,7 @@ Delete an existing review.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: DELETE
-  * Route path: /reviews/:reviewId/
+  * Route path: /reviews/:reviewId
   * Body: none
 
 * Successful Response
@@ -1166,7 +1166,7 @@ Update and return an existing booking.
 * Require proper authorization: Booking must belong to the current user
 * Request
   * Method: PATCH
-  * Route path: /booking/:bookingId
+  * Route path: /bookings/:bookingId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1261,7 +1261,7 @@ Delete an existing booking.
   Spot must belong to the current user
 * Request
   * Method: DELETE
-  * Route path: /booking/:bookingId/
+  * Route path: /bookings/:bookingId/
   * Body: none
 
 * Successful Response
@@ -1379,7 +1379,7 @@ Return spots filtered by query parameters.
 * Require Authentication: false
 * Request
   * Method: GET
-  * Route path: spots/
+  * Route path: /spots
   * Query Parameters
     * page: integer, minimum: 1, default: 1
     * size: integer, minimum: 1, maximum: 20, default: 20
