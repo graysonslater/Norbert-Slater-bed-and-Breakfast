@@ -1166,7 +1166,7 @@ Update and return an existing booking.
 * Require proper authorization: Booking must belong to the current user
 * Request
   * Method: PATCH
-  * Route path: /bookings/:bookingId
+  * Route path: /booking/:bookingId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1261,7 +1261,7 @@ Delete an existing booking.
   Spot must belong to the current user
 * Request
   * Method: DELETE
-  * Route path: /bookings/:bookingId/
+  * Route path: /booking/:bookingId/
   * Body: none
 
 * Successful Response
