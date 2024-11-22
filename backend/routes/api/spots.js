@@ -251,20 +251,20 @@ router.get('/:spotId', async (req,res) => {
 
 const validateEdit = [
     check('address')
-        .optional()
-        .exists({ checkFalsy: true })
+        .optional({ checkFalsy: true })
+        .exists()
         .withMessage("Street address is required"),
     check('city')
-        .optional()
-        .exists({ checkFalsy: true })
+        .optional({ checkFalsy: true })
+        .exists()
         .withMessage("city is required"),
     check('state')
-        .optional()
-        .exists({ checkFalsy: true })
+        .optional({ checkFalsy: true })
+        .exists()
         .withMessage("state is required"),
     check('country')
-        .optional()
-        .exists({ checkFalsy: true })
+        .optional({ checkFalsy: true })
+        .exists()
         .withMessage("country is required"),
     check('lat')
         .optional()
@@ -283,14 +283,14 @@ const validateEdit = [
         .isLength({max:50})
         .withMessage("Name must be less than 50 "),
     check('price')
-        .optional()
-        .exists({ checkFalsy: true })
+        .optional({ checkFalsy: true })
+        .exists()
         .withMessage("Price per day is required"),
     handleValidationErrors
 ]
 
 //Edit a spot
-router.put('/:spotId', requireAuth, validateEdit,async(req, res) => {
+router.patch('/:spotId', requireAuth, validateEdit,async(req, res) => {
     const spotIdParam = req.params.spotId;
     const {address, city, state, country, lat,lng, name, description, price} = req.body;
 
@@ -301,7 +301,7 @@ router.put('/:spotId', requireAuth, validateEdit,async(req, res) => {
     }
 
     //Check if spot belongs to current user
-    if(spot.ownerId !== req.review.id) {
+    if(spot.ownerId !== req.user.id) {
         return res.status(400).json({message:"bad request"});
     } else if(!validateCreate) {
         return res.status(400).json({message:"bad validate"});
