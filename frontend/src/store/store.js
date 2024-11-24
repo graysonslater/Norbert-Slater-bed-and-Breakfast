@@ -6,12 +6,16 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 //allows action creators to return functions
 import {thunk} from 'redux-thunk'
+//grabs session reducer
+import sessionReducer from './session';
 
 /***********************************************************************************************************************************************/
 //*                             REDUCER
 /***********************************************************************************************************************************************/
 
-const rootReducer = combineReducers({})
+const rootReducer = combineReducers({
+  session: sessionReducer
+})
 
 /***********************************************************************************************************************************************/
 //*                             ENHANCER 
@@ -23,7 +27,10 @@ let enhancer;
 if (import.meta.env.MODE === 'production') { //check if app is in production mode
   enhancer = applyMiddleware(thunk); // if prod only 'redux-thunk' middleware is applied
 } else { // if in Development mode
+
+  //!UNSURE ABOUT THE AWAIT BEING USED HERE!!!
   const logger = (await import("redux-logger")).default; // import logger middleware used to log actions and state changes
+  
   const composeEnhancers = //check for Redux DevTools in browser
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // if tools not present use compose
   enhancer = composeEnhancers(applyMiddleware(thunk, logger)); //apply thunk middleware and the logger 

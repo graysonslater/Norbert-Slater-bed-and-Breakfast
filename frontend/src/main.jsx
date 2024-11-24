@@ -16,6 +16,8 @@ import {Provider} from 'react-redux';
 import configureStore from './store/store';
 // restoreCSRF restores or generate a new CSRF token, csrfFetch adds the CSRF token to the request headers
 import { restoreCSRF, csrfFetch } from './store/csrf';
+//gets session reducer and all aexported functions/thunks/objects
+import * as sessionActions from './store/session';
 
 /***********************************************************************************************************************************************/
 //*                             INITIALIZE STORE
@@ -26,13 +28,10 @@ const store = configureStore();
 if (import.meta.env.MODE !== 'production') {
   restoreCSRF();
 
+  //Making the following items globally accessable
   window.csrfFetch = csrfFetch;
   window.store = store;
-}
-
-//If in devlopment mode, makes the Redux store accessible globally in the browser's developer console
-if (process.env.NODE_ENV !== 'production') {
-  window.store = store;
+  window.sessionActions = sessionActions;
 }
 
 /***********************************************************************************************************************************************/
