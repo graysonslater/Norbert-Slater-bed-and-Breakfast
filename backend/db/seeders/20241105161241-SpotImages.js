@@ -15,7 +15,7 @@ async function updateAllSpotPreviews() {
   for (let spot of spots) {
     await spot.assignPreview();
   }
-  console.log('All spot ratings updated');
+  
 }
 
 module.exports = {

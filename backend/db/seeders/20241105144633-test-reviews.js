@@ -13,7 +13,7 @@ async function updateAllSpotRatings() {
   for (let spot of spots) {
     await spot.findAvgRating();
   }
-  console.log('All spot ratings updated');
+  
 }
 
 module.exports = {

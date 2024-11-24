@@ -45,7 +45,7 @@ router.patch('/:bookingId', requireAuth, async (req,res) => {
         err.errors = {endDate: "End date cannot be on or before startDate"}
         return res.status(400).json(err)
     }
-    console.log(id)
+    
     //checking start date/ end date
     const checkStartDate = await Booking.findOne({
         where:{
@@ -57,7 +57,7 @@ router.patch('/:bookingId', requireAuth, async (req,res) => {
             ]
         }
     })
-    console.log("checkStartDate object= ", checkStartDate)
+    
     if (checkStartDate) {
         const err = new Error()
         err.errors = {

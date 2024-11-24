@@ -352,7 +352,6 @@ router.delete('/:spotId/image/:imageId', requireAuth, async (req, res) => {
 
         }
     })
-    //console.log(` TEST TEST TEST ${spotImageToDelete.ownerId}`)
 
     if(!spotImageToDelete) {
         return res.status(404).json({message: "Spot Image could not  be found"})
@@ -366,7 +365,6 @@ router.delete('/:spotId/image/:imageId', requireAuth, async (req, res) => {
 
     //Update preview Images
     const spot = await Spot.findByPk(spotImageToDelete.spotId)
-    console.log(spot)
     //get all preview images
     const previews =await spot.getSpotImages({
         where:{
@@ -486,7 +484,6 @@ router.post('/', requireAuth, validateCreate, async (req,res) =>{
     const ownerId = req.user.id;
     //create new spot
     const newSpot = await Spot.create({address, city, state, country, lat, lng, name, description, price, ownerId})
-    console.log(newSpot.city)
     const response = {
         id: newSpot.id,
         ownerId: newSpot.ownerId,
