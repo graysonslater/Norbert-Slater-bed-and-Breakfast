@@ -1,21 +1,40 @@
+/***********************************************************************************************************************************************/
+//*                             IMPORTS
+/***********************************************************************************************************************************************/
+
 import { useState, useEffect, useRef } from 'react';
+
 import { useDispatch } from 'react-redux';
+
 import { FaUserCircle } from 'react-icons/fa';
+
 import * as sessionActions from '../../store/session';
+
 import OpenModalMenuItem from './OpenModalMenuItem';
+
 import LoginFormModal from '../LoginFormModal/LoginFormModal.jsx';
+
 import SignupFormModal from '../SignupFormModal/SignupFormModal.jsx';
+
+/***********************************************************************************************************************************************/
+//*                             INIT
+/***********************************************************************************************************************************************/
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
+/***********************************************************************************************************************************************/
+//*                             FUNCTIONS
+/***********************************************************************************************************************************************/
+
   const toggleMenu = (e) => {
     e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
     setShowMenu(!showMenu);
   };
 
+  //CLOSE DROPDOWN MENU WHEN CLICK OCCURS OUTSIDE
   useEffect(() => {
     if (!showMenu) return;
 
@@ -30,8 +49,10 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
+  //CLOSE DROPDOWN MENU WHEN FALSE
   const closeMenu = () => setShowMenu(false);
 
+  //DISPATCH LOGOUT ACTION, CLOSES DROPDOWN MENU
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
@@ -39,6 +60,10 @@ function ProfileButton({ user }) {
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+
+/***********************************************************************************************************************************************/
+//*                             HTML
+/***********************************************************************************************************************************************/
 
   return (
     <>

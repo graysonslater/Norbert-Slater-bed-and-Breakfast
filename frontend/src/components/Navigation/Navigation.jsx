@@ -1,3 +1,4 @@
+//IMPORTS
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
@@ -6,17 +7,20 @@ import LoginFormModal from '../LoginFormModal/LoginFormModal.jsx';
 import SignupFormModal from '../SignupFormModal/SignupFormModal.jsx';
 import './Navigation.css';
 
+//FUNCTION COMPONENT
 function Navigation({ isLoaded }) {
+
+  //DETERMINE IIF USER IS LOGGGED IN
   const sessionUser = useSelector((state) => state.session.user);
 
   let sessionLinks;
-  if (sessionUser) {
+  if (sessionUser) { //IF USER IS LOGGED IN
     sessionLinks = (
       <li>
         <ProfileButton user={sessionUser} />
       </li>
     );
-  } else {
+  } else { //IF USER IS NOT LOGGED IN
     sessionLinks = (
       <>
         <li>
@@ -35,12 +39,12 @@ function Navigation({ isLoaded }) {
     );
   }
 
-  return (
+  return ( //RENDER NAVLINKS, isLoaded ensures links are only displayed after data has been loaded
     <ul>
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
-      {isLoaded && sessionLinks}
+      {isLoaded && sessionLinks} 
     </ul>
   );
 }
