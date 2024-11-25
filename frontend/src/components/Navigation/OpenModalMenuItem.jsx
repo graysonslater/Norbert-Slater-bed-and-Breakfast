@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react'; //! React is never used ????
 import { useModal } from '../../context/Modal';
 
 function OpenModalMenuItem({

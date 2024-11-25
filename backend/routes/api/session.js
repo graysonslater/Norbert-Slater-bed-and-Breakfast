@@ -78,7 +78,7 @@ router.post(
     await setTokenCookie(res, safeUser);
 
     return res.status(200).json({
-      user: safeUser
+      user: safeUser //this is used in login thunk!!!
     });
   }
 );
