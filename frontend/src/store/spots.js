@@ -10,7 +10,9 @@ import { csrfFetch } from './csrf';
 
 const GET_ALL_SPOTS = "spots/getAllSpots";
 const GET_ONE_SPOT = 'spots/getOneSpot';
+const EDIT_SPOT = "spots/editSpot"
 
+//get all spots
 const getAllSpotsAO = (spots) => { //Note that spots is plural!!!
     return{
         type: GET_ALL_SPOTS,
@@ -18,12 +20,21 @@ const getAllSpotsAO = (spots) => { //Note that spots is plural!!!
     }
 };
 
+//get one spot
 const getOneSpot = (spot, reviews) => { //Note that spot is singular!!!
     return {
         type: GET_ONE_SPOT,
         payload: {spot, reviews}
     }
 };
+
+//edit a spot
+const editSpotAO = (spot) => {
+    return {
+        type: EDIT_SPOT,
+        payload: spot
+    }
+}
 
 /***********************************************************************************************************************************************/
 //*                            THUNKS
@@ -59,6 +70,30 @@ export const OneSpot = (spotId) => async (dispatch) => {
     return {spotData,reviewData};
 };
 
+//Edit Spot
+export const editSpot = (spot) => async (dispatch) => {
+    //console.log('STORE EDIT TEST', spot)
+    const {id, address, city, state, country, lat,lng, name, description, price, previewImage} = spot;
+    const response = await csrfFetch(`/api/spots/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify({
+            address, 
+            city,
+            state,
+            country,
+            lat, 
+            lng,
+            name, 
+            description,
+            price, 
+            previewImage 
+        })
+    });
+    const update = await response.json();
+    dispatch(editSpotAO(update.spot));
+    return update;
+};
+
 /***********************************************************************************************************************************************/
 //*                             REDUCER
 /***********************************************************************************************************************************************/
@@ -71,6 +106,8 @@ const spotsReducer = (state = initialState, action) => {
             return {...state, spots: action.payload};
         case GET_ONE_SPOT: 
             return {...state, spot: action.payload.spot, reviews: action.payload.reviews};
+        case EDIT_SPOT:
+            return {...state, spot: action.payload}
         default:
             return state;
     }

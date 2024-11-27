@@ -12,6 +12,8 @@ import LoginFormModal from './components/LoginFormModal/LoginFormModal';
 
 import SignupFormModal from './components/SignupFormModal/SignupFormModal';
 
+import EditSpotModal from './components/GetOneSpot/EditSpotModal.jsx';
+
 import Navigation from './components/Navigation/Navigation';
 
 import GetAllSpots from './components/GetAllSpots/GetAllSpots';
@@ -70,6 +72,10 @@ const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupFormModal />
+      },
+      {
+        path: "spots/:spotId/edit",
+        element: <EditSpotModal />
       }
     ]
   }
