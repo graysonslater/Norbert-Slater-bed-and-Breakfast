@@ -1,1 +1,13 @@
-/* TODO: Add sitewide styles */
+.navLinks {
+    display:flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 30px;
+}
+
+.loginSignUp{
+    display: flex;
+    flex-direction: row;
+    padding: 30px;;
+}

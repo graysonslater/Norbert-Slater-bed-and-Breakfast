@@ -9,20 +9,23 @@ import {thunk} from 'redux-thunk'
 //grabs session reducer
 import sessionReducer from './session';
 
+import spotsReducer from './spots';
+
 /***********************************************************************************************************************************************/
 //*                             REDUCER
 /***********************************************************************************************************************************************/
 
 const rootReducer = combineReducers({
-  session: sessionReducer
+  session: sessionReducer,
+  spots: spotsReducer
 })
 
 /***********************************************************************************************************************************************/
 //*                             ENHANCER 
-//                  (should only apply thunk middleware)
+//                    (thunk middleware/ Logger)
 /***********************************************************************************************************************************************/
 
-//Applies logger and thunk middleware only in development mode
+//Applies logger AND thunk middleware only in development mode
 let enhancer;
 if (import.meta.env.MODE === 'production') { //check if app is in production mode
   enhancer = applyMiddleware(thunk); // if prod only 'redux-thunk' middleware is applied

@@ -14,6 +14,10 @@ import SignupFormModal from './components/SignupFormModal/SignupFormModal';
 
 import Navigation from './components/Navigation/Navigation';
 
+import GetAllSpots from './components/GetAllSpots/GetAllSpots';
+
+import GetOneSpot from './components/GetOneSpot/GetOneSpot.jsx'
+
 import * as sessionActions from './store/session';
 
 /***********************************************************************************************************************************************/
@@ -36,10 +40,10 @@ function Layout() {
   }, [dispatch]);
 
   return (
-    <>
+    <div className="navStyle">
       <Navigation isLoaded={isLoaded} />
       {isLoaded && <Outlet />}
-    </>
+    </div>
   );
 }
 
@@ -53,7 +57,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <h1>Welcome!</h1>
+        element: <GetAllSpots />
+      },
+      {
+        path:'spots/:spotId',
+        element: <GetOneSpot />
       },
       {
         path: "login",

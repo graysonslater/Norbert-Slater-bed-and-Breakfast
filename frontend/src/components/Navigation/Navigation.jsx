@@ -22,7 +22,7 @@ function Navigation({ isLoaded }) {
     );
   } else { //IF USER IS NOT LOGGED IN
     sessionLinks = (
-      <>
+      <div className="loginSignUp">
         <li>
           <OpenModalButton
             buttonText="Log In"
@@ -35,12 +35,12 @@ function Navigation({ isLoaded }) {
             modalComponent={<SignupFormModal />}
           />
         </li>
-      </>
+      </div>
     );
   }
 
   return ( //RENDER NAVLINKS, isLoaded ensures links are only displayed after data has been loaded
-    <ul>
+    <ul className="navLinks">
       <li>
         <NavLink to="/">Home</NavLink>
       </li>

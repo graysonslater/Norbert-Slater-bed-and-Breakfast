@@ -19,7 +19,7 @@ import { restoreCSRF, csrfFetch } from './store/csrf';
 import * as sessionActions from './store/session';
 
 import { Modal, ModalProvider } from './context/Modal.jsx';
-
+//initialize store which contains all reducers/action objects
 const store = configureStore();
 
 /***********************************************************************************************************************************************/
