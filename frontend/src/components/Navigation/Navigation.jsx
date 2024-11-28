@@ -10,7 +10,7 @@ import './Navigation.css';
 //FUNCTION COMPONENT
 function Navigation({ isLoaded }) {
 
-  //DETERMINE IIF USER IS LOGGGED IN
+  //DETERMINE IF USER IS LOGGGED IN
   const sessionUser = useSelector((state) => state.session.user);
 
   let sessionLinks;

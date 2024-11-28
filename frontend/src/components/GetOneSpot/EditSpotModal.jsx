@@ -22,6 +22,7 @@ function EditSpotModal() {
     const dispatch = useDispatch();
     //grab spotId from url
     const {spotId} = useParams();
+    // const navigate = Navigate();
 
 /***********************************************************************************************************************************************/
 //*                             Get Spot
@@ -44,7 +45,7 @@ function EditSpotModal() {
         //prevent auto submit
         e.preventDefault();
         //dispatch new data for update
-        return dispatch(editSpot({
+        dispatch(editSpot({
             id: spotId, 
             address, 
             city,
@@ -57,6 +58,8 @@ function EditSpotModal() {
             price, 
             //!previewImage
         }))
+        // navigate(`/spots/${spotId}`)
+
     };
 
 /***********************************************************************************************************************************************/
