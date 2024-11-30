@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 
 import { useDispatch } from 'react-redux';
 
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Outlet, Navigate } from 'react-router-dom';
 
 import LoginFormModal from './components/LoginFormModal/LoginFormModal';
 
@@ -19,6 +19,8 @@ import Navigation from './components/Navigation/Navigation';
 import GetAllSpots from './components/GetAllSpots/GetAllSpots';
 
 import GetOneSpot from './components/GetOneSpot/GetOneSpot.jsx'
+
+import AddReviewModal from './components/GetOneSpot/AddReviewModal.jsx';
 
 import * as sessionActions from './store/session';
 
@@ -76,6 +78,14 @@ const router = createBrowserRouter([
       {
         path: "spots/:spotId/edit",
         element: <EditSpotModal />
+      },
+      {
+        path: "spots/:spotId/review",
+        element: <AddReviewModal />
+      },
+      {
+        path: '*',
+        element: <Navigate to='/' replace ={true} />
       }
     ]
   }

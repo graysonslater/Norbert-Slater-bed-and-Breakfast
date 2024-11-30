@@ -90,7 +90,8 @@ export const editSpot = (spot) => async (dispatch) => {
         })
     });
     const update = await response.json();
-    dispatch(editSpotAO(update.spot));
+    dispatch(editSpotAO(update));
+    // console.log("STORE UPDATE SPOT= ", update)
     return update;
 };
 

@@ -5,8 +5,8 @@
 import { useState, useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-
-// import { Navigate } from 'react-router-dom'; //!NEED TO NAVIGATE BACK TO SPOT PAGE!!!!
+//Important to note useNavigate and Navigate are different functions!!!!
+import { useNavigate } from 'react-router-dom'; //!NEED TO NAVIGATE BACK TO SPOT PAGE!!!!
 
 import { editSpot } from '../../store/spots';
 
@@ -22,7 +22,7 @@ function EditSpotModal() {
     const dispatch = useDispatch();
     //grab spotId from url
     const {spotId} = useParams();
-    // const navigate = Navigate();
+    const navigate = useNavigate();
 
 /***********************************************************************************************************************************************/
 //*                             Get Spot
@@ -44,6 +44,9 @@ function EditSpotModal() {
     const handleSubmit = (e) => {
         //prevent auto submit
         e.preventDefault();
+        
+        // dispatch(OneSpot(spotId)) //!STORE IS UPDATING STATE AT editSpotAO!!!!!!
+
         //dispatch new data for update
         dispatch(editSpot({
             id: spotId, 
@@ -58,7 +61,7 @@ function EditSpotModal() {
             price, 
             //!previewImage
         }))
-        // navigate(`/spots/${spotId}`)
+        navigate(`/spots/${spotId}`)
 
     };
 
@@ -83,7 +86,7 @@ const [price, setPrice] = useState(spot.price);
 
     return(
         <>
-            <h1>Edit Spot</h1>
+            <h2>Edit Spot</h2>
             <form onSubmit={handleSubmit}>
                 <label>
                     Address
@@ -152,7 +155,7 @@ const [price, setPrice] = useState(spot.price);
                 <label>
                     Price
                     <input
-                        type="text"
+                        type="number"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
                     />
