@@ -33,8 +33,8 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
   
     //Get the spot and reviews objects
     const { spot, reviews } = useSelector((state) => {
-        console.log("TEST COMP" ,"spot ID =", spotId, "dispatch =", dispatch, "spots = ", state.spots.spot, "REVIEW OBJ = ", state.reviews.reviewsById) //prints value of spot and review obj in browser console
-        return { spot: state.spots.spot || {}, reviews: state.reviews.reviewsById || []}; //Reviews is plural!!!
+        console.log("TEST COMP" ,"spot ID =", spotId, "spots = ", state.spots.spot, "REVIEW OBJ = ", state.reviews) //prints value of spot and review obj in browser console
+        return { spot: state.spots.spot || {}, reviews: state.reviews.Reviews || []}; //Reviews is plural!!!
     });
     console.log("GOS REVIEW  =", reviews)
 
@@ -48,24 +48,21 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
 
     //Load reviews
     
-            useEffect(() => {
-                console.log("USE EFFECT GOS")
-            dispatch(reviewsBySpotId(spotId));
-            setIsLoading(true);
-        }, [reviews])
+        //     useEffect(() => {
+        //         console.log("USE EFFECT GOS")
+        //     dispatch(reviewsBySpotId(spotId));
+        //     setIsLoading(true);
+        // }, [reviews])
     
-    console.log("TEST FUNC COMP")
+    
 /***********************************************************************************************************************************************/
 //*                             USER IS LOGGGED IN 
 /***********************************************************************************************************************************************/
 
     //DETERMINE IF USER IS LOGGED IN
     const sessionUser = useSelector((state) => {
-        // console.log("COMP SESSION",state.session.user, "OWNER ID =", spot.ownerId)
         return state.session.user});
 
-    
-    // console.log("SESSION TEST= ",sessionUser.id, "spotID = ", spot.ownerId, "TRUE TEST= ", sessionUser.id == spot.ownerId)
     let userViewMod;
     //spot belongs to user
     if (sessionUser && sessionUser.id === spot.ownerId ) {
@@ -87,9 +84,6 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
 /***********************************************************************************************************************************************/
 //*                             HTML
 /***********************************************************************************************************************************************/
-
-    // console.log("TEST LOG OF REVIEW= ",reviews)
-    // console.log("isLoading LOG= ",isLoading)
 
     if(isLoading){
         return (

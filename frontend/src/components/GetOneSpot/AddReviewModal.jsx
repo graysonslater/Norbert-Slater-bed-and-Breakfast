@@ -4,9 +4,9 @@
 
 import { useState } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 //Important to note useNavigate and Navigate are different functions!!!!
-import { useNavigate } from 'react-router-dom'; //!NEED TO NAVIGATE BACK TO SPOT PAGE!!!!
+// import { useNavigate } from 'react-router-dom'; //!NEED TO NAVIGATE BACK TO SPOT PAGE!!!!
 
 import { createReview } from '../../store/reviews'; 
 
@@ -20,10 +20,7 @@ function AddReviewModal() {
     const dispatch = useDispatch();
     //grab spotId from url
     const {spotId} = useParams();
-    const navigate = useNavigate();
-    console.log('ARM spotID =', spotId)
-
-
+    
 
 /***********************************************************************************************************************************************/
 //*                             form submission

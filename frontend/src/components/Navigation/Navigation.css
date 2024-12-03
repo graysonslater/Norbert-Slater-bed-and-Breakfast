@@ -1,2 +1,22 @@
-
-
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: aqua;
+  }
+  
+  .navLinks {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navLinks li {
+    margin-left: 20px;
+  }
+  
+  .session-links {
+    display: flex;
+  }

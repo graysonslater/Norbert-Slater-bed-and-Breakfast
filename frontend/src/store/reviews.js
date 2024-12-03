@@ -39,7 +39,7 @@ export const reviewsBySpotId = (spotId) => async (dispatch) => {
 
     const reviewData = await reviewResponse.json();
     dispatch(getOneSpot(reviewData));
-    console.log("REV STORE =",reviewData)
+    // console.log("REV STORE =",reviewData)
     return {reviewData}
 }
 //create a review
@@ -56,7 +56,7 @@ export const createReview = (reviews) => async (dispatch) => {
     });
     const response = await newReview.json();
     dispatch(createReviewAO(response))
-    console.log("STORE CREATE SPOT = ", response);
+    // console.log("STORE CREATE SPOT = ", response);
     return response;
 };
 

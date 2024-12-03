@@ -15,7 +15,7 @@ import './LoginFormModal.css';
 import { Navigate } from 'react-router-dom';
 
 /***********************************************************************************************************************************************/
-//*                             INIT
+//*                             INIT/
 /***********************************************************************************************************************************************/
 
 function LoginFormModal() {
@@ -29,18 +29,29 @@ function LoginFormModal() {
 //*                             FORM SUBMISSION HANDLER
 /***********************************************************************************************************************************************/
 
+  const isFormValid = () => {
+    return credential.length >= 4 && password.length >= 6;
+  };
+
   //redirect logic
   if (sessionUser) return <Navigate to="/" replace={true} />;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors({});
-    return dispatch(sessionActions.login({ credential, password })).catch(
-      async (res) => {
+    return dispatch(sessionActions.login({ credential, password }))
+      .catch(async (res) => {
         const data = await res.json();
-        if (data?.errors) setErrors(data.errors);
-      }
-    );
+        if (data?.errors) {
+          setErrors({ credential: "The provided credentials were invalid" });
+        }
+      });
+  };
+
+  const handleDemoLogin = () => {
+    const demoCredential = 'demo@user.io';
+    const demoPassword = 'password';
+    return dispatch(sessionActions.login({ credential: demoCredential, password: demoPassword }))
   };
 
 /***********************************************************************************************************************************************/
@@ -69,9 +80,10 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.credential && <p>{errors.credential}</p>}
-        <button type="submit">Log In</button>
+        {errors.credential && <p className="error-message">{errors.credential}</p>}
+        <button type="submit" disabled={!isFormValid()}>Log In</button>
       </form>
+      <button onClick={handleDemoLogin} className="demo-login-button">Log in as Demo User</button>
     </>
   );
 }

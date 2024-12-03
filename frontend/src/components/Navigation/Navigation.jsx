@@ -39,14 +39,21 @@ function Navigation({ isLoaded }) {
     );
   }
 
-  return ( //RENDER NAVLINKS, isLoaded ensures links are only displayed after data has been loaded
-    <ul className="navLinks">
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-      {isLoaded && sessionLinks} 
-    </ul>
-  );
+  return (
+    <nav className="navbar">
+      <NavLink to="/"><img src="/favicon-32x32.png" alt="icon" /></NavLink>
+      <ul className="navLinks">
+        <li>
+          <NavLink to="/">Home</NavLink>
+        </li>
+        {isLoaded && (
+        <div className="session-links">
+            {sessionLinks}
+        </div>
+        )}
+      </ul>
+    </nav>
+  )
 }
 
 export default Navigation;
