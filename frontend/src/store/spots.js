@@ -48,7 +48,7 @@ export const getSpots = () => async (dispatch) => {
     });
 
     const spots = await response.json();
-    // console.log("TEST STORE", spots) 
+    console.log("TEST STORE", spots) 
     dispatch(getAllSpotsAO(spots.Spots));
     return spots.Spots;
 };
@@ -59,14 +59,8 @@ export const OneSpot = (spotId) => async (dispatch) => {
     const spotResponse = await csrfFetch((`/api/spots/${spotId}`), {
         method: "GET"
     });
-    // const reviewResponse = await csrfFetch((`/api/spots/${spotId}/reviews`), {
-    //     method: "GET"
-    // });
-    // console.log("STORE TEST", spotResponse)
-
     const spotData = await spotResponse.json();
-    // const reviewData = await reviewResponse.json();
-
+    
     dispatch(getOneSpot(spotData));//the order is very important! it determines how the args are passed to the Action object!!!
     return spotData;
 };

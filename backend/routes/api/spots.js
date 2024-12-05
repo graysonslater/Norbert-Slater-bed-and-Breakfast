@@ -189,7 +189,8 @@ router.get('/:spotId/reviews', async (req,res)=>{
         include: [
             {model: User, as: 'ReviewUser', attributes:['id', 'firstName', 'lastName']},
             {model:ReviewImages, as: "ReviewImages", attributes:['id','url']}
-        ]
+        ],
+        order: [['createdAt', 'DESC']]
     });
 
     //check if reviews exist
@@ -291,6 +292,7 @@ const validateEdit = [
 
 //Edit a spot
 router.patch('/:spotId', requireAuth, validateEdit,async(req, res) => {
+    
     const spotIdParam = req.params.spotId;
     const {address, city, state, country, lat,lng, name, description, price} = req.body;
 

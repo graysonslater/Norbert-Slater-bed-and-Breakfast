@@ -92,7 +92,7 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
                         {reviews.map((review) => (
                             <li key={review.id}>
                                 <p>{review.ReviewUser.firstName}: {review.review}</p>
-                                <p>Stars: {review.stars}/5</p>
+                                <p>Stars <img src="/favicon-16x16.png" alt="Star Rating" />: {Number(review.stars).toFixed(1)}/5</p>
                                 <p>Date created: {new Date(review.createdAt).getMonth() + 1}/{new Date(review.createdAt).getFullYear()}</p>
                             </li>
                         ))}
@@ -108,18 +108,43 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
 /***********************************************************************************************************************************************/
 //*                             HTML
 /***********************************************************************************************************************************************/
-
+    
+//NOTE this contains INLINE STYLING!!!
     if(isLoading){
         return (
             <div className="singleSpotPAge">
                 <div className="singleSpot">
-                    <h2>{spot.name}</h2>
-                        <img className="SingleSpotImage" src={spot.previewImage} alt="Preview Image" />
-                        <p>Description: {spot.description}</p>
-                        <p>Price: {spot.price}</p>
-                        <p>Average Rating: {spot.avgRating}/5</p>
-                        <p>Location: {spot.address}, {spot.city}, {spot.state}, {spot.country}</p>    
+                <h2>{spot.name}</h2>
+                <p>Location: {spot.city}, {spot.state}, {spot.country}</p>
+                <img className="SingleSpotImage" src={spot.previewImage} alt="Preview Image" />
+                <div className="smallImages">
+                    {spot.images && spot.images.length > 0 ? (
+                        spot.images.slice(0, 4).map((image, index) => (
+                            <img key={index} className="SmallImage" src={image} alt={`Thumbnail ${index + 1}`} />
+                        ))
+                    ) : (
+                        <p>No additional images available.</p>
+                    )}
                 </div>
+                <p>Hosted by {spot.hostFirstName} {spot.hostLastName}</p>
+                <p>Description: {spot.description}</p>
+                <div className="calloutBox">
+                    <p>Price: ${spot.price} per night</p>
+                    <p>
+                        Average Rating
+                        <img src="/favicon-16x16.png" alt="Star Rating" />
+                        : {spot.numReviews > 0 ? (
+                            <>
+                                {Number(spot.avgRating).toFixed(1)}
+                                <span style={{ margin: '0 5px' }}>&middot;</span>
+                                {spot.numReviews} review{spot.numReviews !== 1 ? 's' : ''}
+                            </>
+                        ) : (
+                            "New"
+                        )}
+                    </p>
+                </div>
+            </div>
                 <div className="userViewMod">
                     {userViewMod}
                 </div>

@@ -2,7 +2,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getSpots } from "../../store/spots";
 import { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import './GetAllSpots.Css'
 
 function GetAllSpots (){
 
@@ -11,8 +12,9 @@ function GetAllSpots (){
     const {spots} = useSelector((state) => {
         // console.log("test COMPONENT",state.spots) //shows what the AO is bringing into the function!!!
         return state.spots}) //spots contains a list of all spots
-    
+    console.log("get all spots obj= ", spots)
     // console.log("Function TEST 2",spots)
+
     //load all spots
     useEffect(() => {
         dispatch(getSpots())
@@ -20,15 +22,26 @@ function GetAllSpots (){
 
     //HTML
     return(
-        <ul className="allSpots">
-            {spots.map((spot) => (
-                <li key={spot.id}>
-                    <NavLink to={`/spots/${spot.id}`}>{spot.name}</NavLink>
-                    <p>{spot.description}</p>
-                    <p>{spot.address}, {spot.city}, {spot.state}, {spot.country}</p>
-                </li>
-            ))}
-        </ul>    
+<ul className="allSpots">
+    {spots.map((spot) => (
+        <li key={spot.id} title={spot.name}> {/* Tooltip added here */}
+            <Link to={`/spots/${spot.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <img className="SingleSpotImage" src={spot.previewImage} alt="Preview Image" />
+                <p>
+                    {spot.name}
+                    <img src="/favicon-16x16.png" alt="Star Rating" />
+                    : {spot.avgRating !== null ? (
+                        Number(spot.avgRating).toFixed(1)
+                    ) : (
+                        "New"
+                    )}
+                </p>
+                <p>{spot.address}, {spot.city}, {spot.state}, {spot.country}</p>
+                <p>${spot.price} night</p>
+            </Link>
+        </li>
+    ))}
+</ul>
     )      
 }
 

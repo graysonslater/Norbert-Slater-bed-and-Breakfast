@@ -1,1 +1,25 @@
-
+.allSpots {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+  
+.allSpots li {
+    background-color: #f0f0f0;  /* Light gray background */
+    border: 1px solid #ddd;     /* Light border */
+    border-radius: 8px;         /* Rounded corners */
+    padding: 15px;
+    width: 250px;               /* Fixed width */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);  /* Subtle shadow */
+  }
+  
+  .allSpots li p {
+    margin: 5px 0;
+  }
+  
+  .allSpots li img {
+    vertical-align: middle;
+    margin-right: 5px;
+  }
