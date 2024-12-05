@@ -31,6 +31,10 @@ function SignupFormModal() {
 //*                             FORM SUBMISSION HANDLER
 /***********************************************************************************************************************************************/
 
+  const isFormValid = () => {
+    return email && username.length >= 4 && firstName && lastName && password.length >= 6  && confirmPassword;
+  };
+
   //REDIRECT LOGIC
   if (sessionUser) return <Navigate to="/" replace={true} />;
 
@@ -126,7 +130,7 @@ function SignupFormModal() {
           />
         </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        <button type="submit" disabled={!isFormValid()}>Sign Up</button>
       </form>
     </>
   );

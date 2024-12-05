@@ -36,17 +36,16 @@ export const reviewsBySpotId = (spotId) => async (dispatch) => {
     const reviewResponse = await csrfFetch((`/api/spots/${spotId}/reviews`), {
         method: "GET"
     });
-
     const reviewData = await reviewResponse.json();
-    dispatch(getOneSpot(reviewData));
-    // console.log("REV STORE =",reviewData)
-    return {reviewData}
+    dispatch(reviewsBySpotIdAO(reviewData));
+    console.log("REV STORE RBSI =",reviewData)
+    return reviewData
 }
 //create a review
 export const createReview = (reviews) => async (dispatch) => {
     
     const {id, review, stars} = reviews;
-    console.log("REVIEW STORE =", reviews)
+    // console.log("REVIEW STORE =", reviews)
     const newReview = await csrfFetch(`/api/spots/${id}/reviews`, {
         method: "POST",
         body: JSON.stringify({
@@ -54,9 +53,14 @@ export const createReview = (reviews) => async (dispatch) => {
             stars
         })
     });
-    const response = await newReview.json();
-    dispatch(createReviewAO(response))
-    // console.log("STORE CREATE SPOT = ", response);
+    const reviewResponse = await csrfFetch((`/api/spots/${id}/reviews`), {
+        method: "GET"
+    });
+    
+    const response = await reviewResponse.json();
+    console.log("STORE CREATE review = ", response);
+    dispatch(reviewsBySpotIdAO(response));
+    
     return response;
 };
 
@@ -69,7 +73,7 @@ const initialState = {review: [], reviewsById: []}
 const reveiwReducer = (state = initialState, action) => {
     switch(action.type) {
         case CREATE_REVIEW:
-            return {...state, review: action.payload};
+            return {...state, reviewsById:[...state.reviewsById, action.payload]};
         case GET_REVIEWS_SPOTID:
             return {...state, reviewsById: action.payload};
         default: 

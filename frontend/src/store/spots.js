@@ -24,7 +24,7 @@ const getAllSpotsAO = (spots) => { //Note that spots is plural!!!
 const getOneSpot = (spot, reviews) => { //Note that spot is singular!!!
     return {
         type: GET_ONE_SPOT,
-        payload: {spot, reviews}
+        payload: spot//review removed
     }
 };
 
@@ -59,15 +59,16 @@ export const OneSpot = (spotId) => async (dispatch) => {
     const spotResponse = await csrfFetch((`/api/spots/${spotId}`), {
         method: "GET"
     });
-    const reviewResponse = await csrfFetch((`/api/spots/${spotId}/reviews`), {
-        method: "GET"
-    });
+    // const reviewResponse = await csrfFetch((`/api/spots/${spotId}/reviews`), {
+    //     method: "GET"
+    // });
     // console.log("STORE TEST", spotResponse)
-    const spotData = await spotResponse.json();
-    const reviewData = await reviewResponse.json();
 
-    dispatch(getOneSpot(spotData, reviewData));//the order is very important! it determines how the args are passed to the Action object!!!
-    return {spotData,reviewData};
+    const spotData = await spotResponse.json();
+    // const reviewData = await reviewResponse.json();
+
+    dispatch(getOneSpot(spotData));//the order is very important! it determines how the args are passed to the Action object!!!
+    return spotData;
 };
 
 //Edit Spot
@@ -99,14 +100,14 @@ export const editSpot = (spot) => async (dispatch) => {
 //*                             REDUCER
 /***********************************************************************************************************************************************/
 
-const initialState = {spots: [], spot: [], reviews: []}; //Note that spots is plural and spot is singular!!!
+const initialState = {spots: [], spot: []}; //Note that spots is plural and spot is singular!!!
 
 const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_SPOTS:
             return {...state, spots: action.payload};
         case GET_ONE_SPOT: 
-            return {...state, spot: action.payload.spot, reviews: action.payload.reviews};
+            return {...state, spot: action.payload};
         case EDIT_SPOT:
             return {...state, spot: action.payload}
         default:

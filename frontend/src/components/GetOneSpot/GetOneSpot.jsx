@@ -22,28 +22,26 @@ import AddReviewModal from "./AddReviewModal"
 /***********************************************************************************************************************************************/
 
 function GetOneSpot() { //function compnents should be in Pascal case!!
-    console.log("FUNC COMP START")
     const dispatch = useDispatch();
-
     const {spotId} = useParams();
-
     //loading state
     const [isLoading, setIsLoading] = useState(false);
 
-  
+/***********************************************************************************************************************************************/
+//*                             Store params
+/***********************************************************************************************************************************************/
+
     //Get the spot and reviews objects
-    const { spot, reviews } = useSelector((state) => {
-        console.log("TEST COMP" ,"spot ID =", spotId, "spots = ", state.spots.spot, "REVIEW OBJ = ", state.reviews) //prints value of spot and review obj in browser console
-        return { spot: state.spots.spot || {}, reviews: state.reviews.Reviews || []}; //Reviews is plural!!!
-    });
-    console.log("GOS REVIEW  =", reviews)
+    const spot = useSelector(state => state.spots.spot || {});
+
+    const reviews = useSelector(state => state.reviews.reviewsById.Reviews || []);
+    console.log("spot =", spot, "reviews =", reviews)
 
      //Load the specific spot
      useEffect(() => {
-        console.log("USE EFFECT 1 spotId ABOVE",spotId)
         dispatch(OneSpot(spotId));
+        dispatch(reviewsBySpotId(spotId))
         setIsLoading(true);
-        console.log("USE EFFECT 1 spotId BELOW",spotId)
     }, [dispatch, spotId])
 
     //Load reviews
@@ -56,7 +54,7 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
     
     
 /***********************************************************************************************************************************************/
-//*                             USER IS LOGGGED IN 
+//*                             USER IS LOGGGED IN conditional
 /***********************************************************************************************************************************************/
 
     //DETERMINE IF USER IS LOGGED IN
@@ -82,6 +80,32 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
     }   
 
 /***********************************************************************************************************************************************/
+//*                             Reviews viewing conditional
+/***********************************************************************************************************************************************/
+
+    let reviewViewMod;
+    if (sessionUser && reviews.length > 0 && sessionUser.id !== spot.ownerId){
+        reviewViewMod = (
+            <div className="singleSpotReviews">
+                <h3>{reviews.length} Review{reviews.length !== 1 ? 's' : ''}</h3>
+                    <ul className="singleSpotReviewsList">
+                        {reviews.map((review) => (
+                            <li key={review.id}>
+                                <p>{review.ReviewUser.firstName}: {review.review}</p>
+                                <p>Stars: {review.stars}/5</p>
+                                <p>Date created: {new Date(review.createdAt).getMonth() + 1}/{new Date(review.createdAt).getFullYear()}</p>
+                            </li>
+                        ))}
+                    </ul>
+            </div>
+        )
+    } else {
+        reviewViewMod =(
+            <div>Be the first to post a review</div>
+        )
+    }
+
+/***********************************************************************************************************************************************/
 //*                             HTML
 /***********************************************************************************************************************************************/
 
@@ -99,16 +123,8 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
                 <div className="userViewMod">
                     {userViewMod}
                 </div>
-                <div className="singleSpotReviews">
-                    <h3>{spot.numReviews} Reviews</h3>
-                        <ul className="singleSpotReviewsList">
-                            {reviews.map((review) => (
-                                <li key={review.id}>
-                                    <p>User {review.userId}: {review.review}</p>
-                                    <p>Stars: {review.stars}/5</p>
-                                </li>
-                            ))}
-                        </ul>
+                <div>
+                    {reviewViewMod}
                 </div>
             </div>
         )
