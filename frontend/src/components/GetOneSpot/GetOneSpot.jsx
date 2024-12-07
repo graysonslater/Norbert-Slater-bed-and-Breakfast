@@ -17,6 +17,10 @@ import EditSpotModal from "./EditSpotModal";
 
 import AddReviewModal from "./AddReviewModal"
 
+import DeleteReview from "./DeleteReview";
+
+import "./GetOneSpot.css"
+
 /***********************************************************************************************************************************************/
 //*                             INIT/Function declaration
 /***********************************************************************************************************************************************/
@@ -42,16 +46,8 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
         dispatch(OneSpot(spotId));
         dispatch(reviewsBySpotId(spotId))
         setIsLoading(true);
-    }, [dispatch, spotId])
+    }, [dispatch, spotId]);
 
-    //Load reviews
-    
-        //     useEffect(() => {
-        //         console.log("USE EFFECT GOS")
-        //     dispatch(reviewsBySpotId(spotId));
-        //     setIsLoading(true);
-        // }, [reviews])
-    
     
 /***********************************************************************************************************************************************/
 //*                             USER IS LOGGGED IN conditional
@@ -69,13 +65,20 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
                 <EditSpotModal />
             </div>
         )
-    //spot does not belong to user 
+
+    //spot does not belong to user //!NEEDS TO BE CHANGED SO THAT THE USER CAN ONLY SUBMIT REVIEW IF THEY DONT ALREADY HAVE ONE
     }else if (sessionUser && sessionUser.id !== spot.ownerId ){
-        // console.log("SPOT ID 2 = ", spot.ownerId)
+        const userHasReviewed = reviews.some(review => review.userId === sessionUser.id);
         userViewMod = (
-            <div className="GOSNotLoggedAddReview">
-                <AddReviewModal />
-            </div>
+            <>
+                <div className="GOSNotLoggedAddReview">
+                    <AddReviewModal />
+                </div>
+                <div className="calloutBox">
+                <p>Price: ${spot.price} per night</p>
+                <button className="reserveButton" onClick={() => alert("Feature coming soon")}>Reserve</button>
+                </div>
+            </>
         )
     }   
 
@@ -84,7 +87,7 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
 /***********************************************************************************************************************************************/
 
     let reviewViewMod;
-    if (sessionUser && reviews.length > 0 && sessionUser.id !== spot.ownerId){
+    if (sessionUser && reviews.length > 0){
         reviewViewMod = (
             <div className="singleSpotReviews">
                 <h3>{reviews.length} Review{reviews.length !== 1 ? 's' : ''}</h3>
@@ -94,9 +97,13 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
                                 <p>{review.ReviewUser.firstName}: {review.review}</p>
                                 <p>Stars <img src="/favicon-16x16.png" alt="Star Rating" />: {Number(review.stars).toFixed(1)}/5</p>
                                 <p>Date created: {new Date(review.createdAt).getMonth() + 1}/{new Date(review.createdAt).getFullYear()}</p>
+                                <p>
+                                    {review.userId === sessionUser.id && <DeleteReview reviewId={review.id}/> }
+                                </p>
                             </li>
-                        ))}
+                        ))}  
                     </ul>
+                    
             </div>
         )
     } else {
@@ -118,8 +125,8 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
                 <p>Location: {spot.city}, {spot.state}, {spot.country}</p>
                 <img className="SingleSpotImage" src={spot.previewImage} alt="Preview Image" />
                 <div className="smallImages">
-                    {spot.images && spot.images.length > 0 ? (
-                        spot.images.slice(0, 4).map((image, index) => (
+                    {spot.images && spot.previewImage.length > 0 ? (
+                        spot.previewImage.slice(0, 4).map((image, index) => (
                             <img key={index} className="SmallImage" src={image} alt={`Thumbnail ${index + 1}`} />
                         ))
                     ) : (
@@ -128,22 +135,20 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
                 </div>
                 <p>Hosted by {spot.hostFirstName} {spot.hostLastName}</p>
                 <p>Description: {spot.description}</p>
-                <div className="calloutBox">
-                    <p>Price: ${spot.price} per night</p>
-                    <p>
-                        Average Rating
-                        <img src="/favicon-16x16.png" alt="Star Rating" />
-                        : {spot.numReviews > 0 ? (
-                            <>
-                                {Number(spot.avgRating).toFixed(1)}
-                                <span style={{ margin: '0 5px' }}>&middot;</span>
-                                {spot.numReviews} review{spot.numReviews !== 1 ? 's' : ''}
-                            </>
-                        ) : (
-                            "New"
-                        )}
-                    </p>
-                </div>
+                <p>
+                    Average Rating
+                    <img src="/favicon-16x16.png" alt="Star Rating" />
+                    : {spot.numReviews > 0 ? (
+                        <>
+                            {Number(spot.avgRating).toFixed(1)}
+                            <span style={{ margin: '0 5px' }}>&middot;</span>
+                            {spot.numReviews} review{spot.numReviews !== 1 ? 's' : ''}
+                        </>
+                    ) : (
+                        "New"
+                    )}
+                </p>
+
             </div>
                 <div className="userViewMod">
                     {userViewMod}

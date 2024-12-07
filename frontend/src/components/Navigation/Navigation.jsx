@@ -9,16 +9,19 @@ import './Navigation.css';
 
 //FUNCTION COMPONENT
 function Navigation({ isLoaded }) {
-
+  
+  
   //DETERMINE IF USER IS LOGGGED IN
   const sessionUser = useSelector((state) => state.session.user);
 
   let sessionLinks;
   if (sessionUser) { //IF USER IS LOGGED IN
     sessionLinks = (
-      <li>
-        <ProfileButton user={sessionUser} />
-      </li>
+      <>
+        <li>
+            <ProfileButton user={sessionUser} />
+        </li>
+      </>
     );
   } else { //IF USER IS NOT LOGGED IN
     sessionLinks = (

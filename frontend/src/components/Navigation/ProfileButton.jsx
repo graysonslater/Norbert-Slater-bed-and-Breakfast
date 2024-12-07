@@ -4,7 +4,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch} from 'react-redux';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -12,29 +12,27 @@ import { FaUserCircle } from 'react-icons/fa';
 
 import * as sessionActions from '../../store/session';
 
-import OpenModalMenuItem from './OpenModalMenuItem';
-
-import LoginFormModal from '../LoginFormModal/LoginFormModal.jsx';
-
-import SignupFormModal from '../SignupFormModal/SignupFormModal.jsx';
-
 /***********************************************************************************************************************************************/
-//*                             INIT
+//*                             INIT/function declaration
 /***********************************************************************************************************************************************/
 
 function ProfileButton({ user }) {
+  
   const navigate = useNavigate()
+  
   const dispatch = useDispatch();
-  const [showMenu, setShowMenu] = useState(false);
+ 
+  const [showMenu, setShowMenu] = useState(true);
+ 
   const ulRef = useRef();
-
+  
 /***********************************************************************************************************************************************/
 //*                             FUNCTIONS
 /***********************************************************************************************************************************************/
 
   const toggleMenu = (e) => {
     e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
-    setShowMenu(!showMenu);
+    setShowMenu(!showMenu);// This will toggle the menu visibility
   };
 
   //CLOSE DROPDOWN MENU WHEN CLICK OCCURS OUTSIDE
@@ -43,7 +41,7 @@ function ProfileButton({ user }) {
 
     const closeMenu = (e) => {
       if (!ulRef.current.contains(e.target)) {
-        setShowMenu(false);
+        setShowMenu(false); 
       }
     };
 
@@ -70,32 +68,20 @@ function ProfileButton({ user }) {
 /***********************************************************************************************************************************************/
 
   return (
+    
     <>
       <button onClick={toggleMenu}>
         <FaUserCircle />
       </button>
       <ul className={ulClassName} ref={ulRef}>
-        {user ? (
+        {showMenu && (
           <>
-            <li>Hello {user.username}</li>
+            <li>Hello {user.userName}</li>
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
             <li>
               <button onClick={logout}>Log Out</button>
             </li>
-          </>
-        ) : (
-          <>
-            <OpenModalMenuItem
-              itemText="Log In"
-              onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
-            />
-            <OpenModalMenuItem
-              itemText="Sign Up"
-              onItemClick={closeMenu}
-              modalComponent={<SignupFormModal />}
-            />
           </>
         )}
       </ul>

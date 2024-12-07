@@ -1,0 +1,43 @@
+.calloutBox {
+    position: absolute;
+    top: 400px;  
+    right: 200px;
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-left: 20px;
+    align-self: flex-end;
+    justify-content: center ;
+}
+
+.calloutBox p {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+}
+
+.reserveButton {
+    width: 30%;
+    padding: 10px;
+    background-color: #ff5a5f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.reserveButton:hover {
+    background-color: #ff3b3f;
+}
+
+@media screen and (max-width: 968px) {
+    .calloutBox {
+        position: static;
+        margin: 20px auto;
+        width: 90%;
+        max-width: 300px;
+    }
+}

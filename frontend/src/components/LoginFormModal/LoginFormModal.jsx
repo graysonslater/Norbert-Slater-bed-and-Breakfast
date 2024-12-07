@@ -14,6 +14,8 @@ import './LoginFormModal.css';
 
 import { Navigate } from 'react-router-dom';
 
+
+
 /***********************************************************************************************************************************************/
 //*                             INIT/
 /***********************************************************************************************************************************************/
@@ -21,10 +23,16 @@ import { Navigate } from 'react-router-dom';
 function LoginFormModal() {
   
   const dispatch = useDispatch();
+  
   const sessionUser = useSelector((state) => state.session.user);
+  
   const [credential, setCredential] = useState("");
+  
   const [password, setPassword] = useState("");
+  
   const [errors, setErrors] = useState({});
+  
+
 
 /***********************************************************************************************************************************************/
 //*                             FORM SUBMISSION HANDLER

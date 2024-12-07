@@ -107,6 +107,7 @@ router.patch('/:reviewId', requireAuth, validateReviewUpdate, async (req,res) =>
 
 //Delete a Review
 router.delete('/:reviewId', requireAuth, async (req,res) => {
+    
     //get reviewId from url
     const reviewId = req.params.reviewId;
 

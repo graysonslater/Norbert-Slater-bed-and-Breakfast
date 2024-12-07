@@ -21,7 +21,7 @@ const getAllSpotsAO = (spots) => { //Note that spots is plural!!!
 };
 
 //get one spot
-const getOneSpot = (spot, reviews) => { //Note that spot is singular!!!
+const getOneSpot = (spot) => { //Note that spot is singular!!!
     return {
         type: GET_ONE_SPOT,
         payload: spot//review removed
