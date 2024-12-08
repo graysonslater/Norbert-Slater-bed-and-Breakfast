@@ -2,7 +2,6 @@
 //*                             IMPORTS
 /***********************************************************************************************************************************************/
 
-
 import { useDispatch, useSelector } from "react-redux";
 
 import { OneSpot } from "../../store/spots";
@@ -72,7 +71,7 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
         userViewMod = (
             <>
                 <div className="GOSNotLoggedAddReview">
-                    <AddReviewModal />
+                    {!userHasReviewed && <AddReviewModal />}
                 </div>
                 <div className="calloutBox">
                 <p>Price: ${spot.price} per night</p>

@@ -22,6 +22,10 @@ import GetOneSpot from './components/GetOneSpot/GetOneSpot.jsx'
 
 import AddReviewModal from './components/GetOneSpot/AddReviewModal.jsx';
 
+import CreateSpot from "./components/CreateSpot/CreateSpot.jsx"
+
+import ManageSpots from './components/ManageSpots/ManageSpots.jsx';
+
 import * as sessionActions from './store/session';
 
 /***********************************************************************************************************************************************/
@@ -82,6 +86,14 @@ const router = createBrowserRouter([
       {
         path: "spots/:spotId/review",
         element: <AddReviewModal />
+      },
+      {
+        path: "spots/new",
+        element: <CreateSpot />
+      },
+      {
+        path: "/manage",
+        element: <ManageSpots />
       },
       {
         path: '*',

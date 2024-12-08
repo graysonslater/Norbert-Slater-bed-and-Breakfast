@@ -66,7 +66,7 @@ function ProfileButton({ user }) {
 /***********************************************************************************************************************************************/
 //*                             HTML
 /***********************************************************************************************************************************************/
-
+  //Drop down menu html
   return (
     
     <>
@@ -76,11 +76,14 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {showMenu && (
           <>
-            <li>Hello {user.userName}</li>
+            <li>Hello {user.firstName}</li>
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
             <li>
               <button onClick={logout}>Log Out</button>
+            </li>
+            <li>
+              <button onClick={() => navigate('/manage')}>Manage Spots</button>
             </li>
           </>
         )}

@@ -13,6 +13,8 @@ import spotsReducer from './spots';
 
 import reveiwReducer from './reviews';
 
+import imageReducer from './spotImage';
+
 /***********************************************************************************************************************************************/
 //*                             REDUCER
 /***********************************************************************************************************************************************/
@@ -20,7 +22,8 @@ import reveiwReducer from './reviews';
 const rootReducer = combineReducers({
   session: sessionReducer,
   spots: spotsReducer,
-  reviews: reveiwReducer
+  reviews: reveiwReducer,
+  images: imageReducer
 })
 
 /***********************************************************************************************************************************************/

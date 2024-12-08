@@ -42,10 +42,21 @@ function Navigation({ isLoaded }) {
     );
   }
 
+  //create Spot button
+  let createSpotButton;
+  if (sessionUser){
+    createSpotButton = (
+      <NavLink to="/spots/new"><button>Create a New Spot</button></NavLink>
+    )
+  }
+
   return (
     <nav className="navbar">
       <NavLink to="/"><img src="/favicon-32x32.png" alt="icon" /></NavLink>
       <ul className="navLinks">
+        <li className="createSpotButton">
+          {createSpotButton}
+        </li>
         <li>
           <NavLink to="/">Home</NavLink>
         </li>

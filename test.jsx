@@ -14,8 +14,6 @@ import { OneSpot } from '../../store/spots';
 
 import CustomModal from '../../context/CustomModal';
 
-import "./AddReviewModal.css";
-
 /***********************************************************************************************************************************************/
 //*                             INIT/Function declaration
 /***********************************************************************************************************************************************/
@@ -29,6 +27,12 @@ function AddReviewModal() {
 //*                             form submission
 /***********************************************************************************************************************************************/
 
+    // const reviewEvent = (e) => {
+    //     e.preventDefault();
+    //     setShowsubmit(!showSubmit)
+
+    // }
+
     const toggleModal = () => setShowSubmit(!showSubmit);
 
     const handleSubmit = async (e) => {
@@ -38,12 +42,12 @@ function AddReviewModal() {
         try {
 
             //dispatch new review
-            await dispatch(createReview({
+            dispatch(createReview({
                 id: spotId,
                 review: review,
                 stars: stars
             }));
-            await dispatch(OneSpot(spotId));
+            dispatch(OneSpot(spotId));
             
             //reset state
             setReview("");
@@ -87,7 +91,7 @@ const [serverErrors, setServerErrors] = useState([]);
                             </ul>
                         </div>
                     )}
-                    <form onSubmit={handleSubmit} className="button-container">
+                    <form onSubmit={handleSubmit}>
                         <label>
                             Review
                             <input
@@ -108,22 +112,12 @@ const [serverErrors, setServerErrors] = useState([]);
                                 onChange={(e) => setStars(Number(e.target.value))}
                             />
                         </label>
-                        <div className="button-container">
-                            <button 
-                                type="submit" 
-                                disabled={review.length < 10 || stars === undefined}
-                                className="submit-button"
-                            >
-                                Submit Your Review
-                            </button>
-                            <button 
-                                type="button" 
-                                onClick={toggleModal} 
-                                className="cancel-button"
-                            >
-                                Cancel
-                            </button>
-                        </div>
+                        <button 
+                            type="submit" 
+                            disabled={review.length < 10 || stars === undefined}
+                        >
+                            Submit Your Review
+                        </button>
                     </form>
                 </CustomModal>
             )}

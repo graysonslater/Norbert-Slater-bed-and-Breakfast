@@ -80,6 +80,33 @@ router.post('/:spotId/bookings', requireAuth, async (req,res) => {
     res.status(201).json(response);
 });
 
+//get all spotiamges by spot Id
+router.get('/spotimages/:spotId', requireAuth, async(req,res) => {
+   
+    //grabbing spotId from url
+    const spotId = req.params.spotId
+   
+    //find spot
+    const spot = await Spot.findByPk(spotId);
+    
+    //if spot doesnt exist
+    if(!spot){
+        return res.status(404).json({"message": "Spot couldn't be found"} );
+    }
+
+    //get all images that are not previews, search by spotId
+    const allImages =await spot.getSpotImages({
+        where:{
+            preview: false,
+            spotId: spotId
+        },
+        attributes: ['url']
+    });
+
+    //return urls
+    res.status(200).json(allImages)
+});
+
 //Add an Image to a Spot based on the Spot's id
 router.post('/:spotId/images',requireAuth, restoreUser, async(req,res)=>{
     //check if spot exits
@@ -102,15 +129,16 @@ router.post('/:spotId/images',requireAuth, restoreUser, async(req,res)=>{
     //get all preview images
     const previews =await spot.getSpotImages({
         where:{
-        preview: true,
+            preview: true,
+            spotId: spotId
 
         },
         attributes: ['url']
     });
-    //create array of urls from preview object
-    const urls = previews.map(preview => preview.url)
+    console.log("PREVIEWS URL =", typeof previews[0].dataValues.url)
+
     //assign array of urls to previewImage
-    spot.previewImage = urls;
+    spot.previewImage =  previews[0].dataValues.url //!MAY NEED TO BE ALTERED!!!!!!!
     await spot.save();
 
     //response
@@ -461,9 +489,11 @@ const validateCreate = [
         .exists({ checkFalsy: true })
         .withMessage("country is required"),
     check('lat')
+        .optional()
         .isLength({min: 6})
         .withMessage("Latitude is not valid"),
     check('lng')
+        .optional()
         .isLength({min: 6})
         .withMessage("Longitude is not valid"),
     check('description')
@@ -481,9 +511,11 @@ const validateCreate = [
 //create A Spot
 router.post('/', requireAuth, validateCreate, async (req,res) =>{
     //grab inputs from body
-    const {address, city, state, country, lat, lng, name, description, price} = req.body;
+    const {address, city, state, country, lat, lng, title, description, price} = req.body;
     //get user id
     const ownerId = req.user.id;
+    //title is how the variable is name in the front end from CreateSpot.jsx
+    const name = title;
     //create new spot
     const newSpot = await Spot.create({address, city, state, country, lat, lng, name, description, price, ownerId})
     const response = {
@@ -495,7 +527,7 @@ router.post('/', requireAuth, validateCreate, async (req,res) =>{
         country: newSpot.country,
         lat: newSpot.lat,
         lng: newSpot.lng,
-        name: newSpot.name,
+        name: newSpot.title,
         description: newSpot.description,
         price: newSpot.price,
         createdAt: newSpot.createdAt,

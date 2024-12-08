@@ -90,6 +90,46 @@ export const editSpot = (spot) => async (dispatch) => {
     return update;
 };
 
+//Create new spot
+export const createSpot = (spot) => async (dispatch) => {
+    const {address, city, state, country, lat,lng, title, description, price, previewImage} = spot;
+    const response = await csrfFetch( '/api/spots/', {
+        method: "POST",
+        body: JSON.stringify({
+            address, 
+            city,
+            state,
+            country,
+            lat, 
+            lng,
+            title, 
+            description,
+            price 
+        })
+    });
+    const newSpot = await response.json();
+
+     //get all the spots
+     const spotResponse = await csrfFetch("/api/spots", {
+        method: "GET"
+    });
+    const spots = await spotResponse.json();
+    dispatch(getAllSpotsAO(spots.Spots));
+
+    return newSpot;
+}
+
+//Get spots by userId
+export const getSpotsByUserId = (userId) => async (dispatch) => {
+    const usersSpots = await csrfFetch(`/api/users/${userId}/spots`, {
+        method: "GET"
+    })
+    const returnedSpots = await usersSpots.json();
+    console.log("MUS STORE = ", returnedSpots)
+    dispatch(getAllSpotsAO(returnedSpots))
+    return returnedSpots;
+};
+
 /***********************************************************************************************************************************************/
 //*                             REDUCER
 /***********************************************************************************************************************************************/
@@ -98,12 +138,12 @@ const initialState = {spots: [], spot: []}; //Note that spots is plural and spot
 
 const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_ALL_SPOTS:
+        case GET_ALL_SPOTS: //also used for find spot by userID!!!!
             return {...state, spots: action.payload};
         case GET_ONE_SPOT: 
             return {...state, spot: action.payload};
         case EDIT_SPOT:
-            return {...state, spot: action.payload}
+            return {...state, spot: action.payload};
         default:
             return state;
     }
