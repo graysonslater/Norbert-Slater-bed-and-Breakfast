@@ -2,59 +2,55 @@
 //*                             IMPORTS
 /***********************************************************************************************************************************************/
 
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 
-import { useParams } from "react-router-dom";
-
-import { deleteReview } from '../../store/reviews';
-
-import { OneSpot } from '../../store/spots';
+import { getSpotsByUserId, deleteSpot } from "../../store/spots";
 
 import { useState } from 'react';
 
 import CustomModal from "../../context/CustomModal"
 
+import "./DeleteSpot.css" 
+
 /***********************************************************************************************************************************************/
 //*                             INIT/Function declaration
 /***********************************************************************************************************************************************/
 
-function DeleteReview({reviewId}) {
-    const dispatch = useDispatch();
-    let {spotId} = useParams();
-    spotId = Number(spotId)
-    const [showConfirm, setShowConfirm] = useState(false)
+function DeleteSpot({spotId}) {
     
+    const dispatch = useDispatch();
+    const [showConfirm, setShowConfirm] = useState(false)
+
+    //get user info
+    const sessionUser = useSelector((state) => {
+        return state.session.user});
+
 /***********************************************************************************************************************************************/
 //*                             form submission
 /**********************************************************************************************************************************************/
-    
-    const handleDelete = (e) => {
-        e.preventDefault();
-        dispatch(deleteReview({
-            reviewId: reviewId,
-            spotId: spotId
-        }))
-        dispatch(OneSpot(spotId));
-        
+    console.log("DS TEST= ", spotId)
+const handleDelete = (e) => {
+    e.preventDefault();
+    dispatch(deleteSpot(spotId,sessionUser.id))
+    dispatch(getSpotsByUserId(sessionUser.id));
     };
-    
 
-    const deleteEvent = (e) => { //opens and closes modal
+    const deleteEvent = (e) => {
         e.preventDefault();
         setShowConfirm(!showConfirm)
 
     }
-    console.log(showConfirm)
+
 /***********************************************************************************************************************************************/
 //*                             HTML
 /***********************************************************************************************************************************************/
-    return (
-        <>
-            <button type="button" onClick={deleteEvent}>Delete</button>
+return (
+    <>
+        <button type="button" onClick={deleteEvent}>Delete</button>
             <>{showConfirm && 
                 <CustomModal onClose={deleteEvent}>
                     <div className='deleteTitle'>Confirm Delete</div>
-                    <div className="deleteMessage">Are you sure you want to delete this review?</div>
+                    <div className="deleteMessage">Are you sure you want to remove this spot?</div>
                     <div className='deleteButtons'>
                         <button type="button" onClick={handleDelete} style={{ backgroundColor: 'red', color: 'white' }}>Yes (Delete Review)</button>
                         <button type="button" onClick={deleteEvent} style={{ backgroundColor: 'grey', color: 'white' }}>No (Keep Review)</button>
@@ -65,4 +61,4 @@ function DeleteReview({reviewId}) {
     )
 }
 
-export default DeleteReview;
+export default DeleteSpot;

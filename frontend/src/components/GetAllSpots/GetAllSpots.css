@@ -23,3 +23,11 @@
     vertical-align: middle;
     margin-right: 5px;
   }
+
+
+.SingleSpotImage {
+    width: 200px; 
+    height: auto;  
+    max-height: 200px; 
+    object-position: center;
+  }

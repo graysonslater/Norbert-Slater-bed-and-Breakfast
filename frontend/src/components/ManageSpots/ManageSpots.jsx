@@ -6,14 +6,15 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getSpotsByUserId } from "../../store/spots";
-import { Link,NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import DeleteSpot from '../EditSpot/DeleteSpot'
 
 /***********************************************************************************************************************************************/
 //*                             INIT/Function declaration
 /***********************************************************************************************************************************************/
 
 function ManageSpots(){
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     //get user info
@@ -23,7 +24,7 @@ function ManageSpots(){
     //GET USERS SPOTS
     const spots = useSelector((state) => {
         return state.spots.spots}) 
-        console.log("GUS TEST= ",spots.spots)
+        // console.log("GUS TEST= ",spots.spots)
     //load all USERS spots
     useEffect(() => {
         dispatch(getSpotsByUserId(sessionUser.id))
@@ -38,7 +39,7 @@ function ManageSpots(){
         userViewMod =(
             <ul className="allSpots">
                 {spots.map((spot) => (
-                    <li key={spot.id} title={spot.name}> {/* Tooltip added here */}
+                    <li key={spot.id} title={spot.name}> 
                         <Link to={`/spots/${spot.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                             <img className="SingleSpotImage" src={spot.previewImage} alt="Preview Image" />
                             <p>
@@ -53,8 +54,12 @@ function ManageSpots(){
                             <p>{spot.address}, {spot.city}, {spot.state}, {spot.country}</p>
                             <p>${spot.price} night</p>
                             <div className="MUSButtons">
-                                <button>Delete</button>
-                                <button>Update</button>
+                                <DeleteSpot spotId={spot.id}/>
+                                <button onClick={(e) => {
+                                    e.preventDefault(); 
+                                    e.stopPropagation(); 
+                                    navigate(`/spots/edit/${spot.id}`);
+                                }}>Update</button>
                             </div>
                         </Link>
                     </li>
@@ -78,6 +83,6 @@ function ManageSpots(){
             </>
         </>
     )
-};
+}
 
 export default ManageSpots;

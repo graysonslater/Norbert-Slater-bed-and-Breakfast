@@ -15,12 +15,31 @@ async function updateAllSpotPreviews() {
   for (let spot of spots) {
     await spot.assignPreview();
   }
-  
 }
 
 module.exports = {
   async up (queryInterface, Sequelize) {
     await SpotImage.bulkCreate([
+        {
+          spotId: 1,
+          url: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg',
+          preview:false    
+        },
+        {
+          spotId: 1,
+          url: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg',
+          preview:false    
+        },
+        {
+          spotId: 1,
+          url: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg',
+          preview:false    
+        },
+        {
+          spotId: 1,
+          url: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg',
+          preview:false    
+        },
         {
           spotId: 1,
           url: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg',

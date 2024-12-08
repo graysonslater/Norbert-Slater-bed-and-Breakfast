@@ -1,23 +1,26 @@
 'use strict';
+
+
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Spot extends Model {
 
-    async assignPreview(){
-      //get all preview images
-      const previews =await this.getSpotImages({
-        where:{
-          preview: true,
-
-        },
-        attributes: ['url']
+    async assignPreview() {
+      const SpotImage = sequelize.models.SpotImage;
+      const previewImage = await SpotImage.findOne({
+        where: { spotId: this.id, preview: true },
+        attributes: ['url'],
+        raw: true
       });
-      //create array of urls from preview object
-      const urls = previews.map(preview => preview.url)
-      //assign array of urls to previewImage
-      this.previewImage = urls;
+    
+      if (previewImage) {
+        this.previewImage = previewImage.url;
+      } else {
+        this.previewImage = null; // or a default image URL
+      }
+    
       await this.save();
     }
 

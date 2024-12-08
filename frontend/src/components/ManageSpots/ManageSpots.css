@@ -1,0 +1,32 @@
+.deleteTitle {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .deleteMessage {
+    margin-bottom: 20px;
+  }
+  
+  .deleteButtons {
+    display: flex;
+    justify-content: space-around; /* Space buttons evenly */
+  }
+  
+  .deleteButtons button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* You already have inline styles for button colors, but you can move them here if you prefer */
+  .deleteButtons button:first-of-type { /* Delete button */
+    background-color: red; 
+    color: white;
+  }
+  
+  .deleteButtons button:last-of-type { /* Keep button */
+    background-color: grey;
+    color: white;
+  }

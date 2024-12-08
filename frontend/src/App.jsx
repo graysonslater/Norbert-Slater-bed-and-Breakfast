@@ -8,11 +8,7 @@ import { useDispatch } from 'react-redux';
 
 import { createBrowserRouter, RouterProvider, Outlet, Navigate } from 'react-router-dom';
 
-import LoginFormModal from './components/LoginFormModal/LoginFormModal';
-
-import SignupFormModal from './components/SignupFormModal/SignupFormModal';
-
-import EditSpotModal from './components/GetOneSpot/EditSpotModal.jsx';
+import EditSpotModal from './components/EditSpot/EditSpotModal.jsx';
 
 import Navigation from './components/Navigation/Navigation';
 
@@ -72,15 +68,7 @@ const router = createBrowserRouter([
         element: <GetOneSpot />
       },
       {
-        path: "login",
-        element: <LoginFormModal />
-      },
-      {
-        path: "signup",
-        element: <SignupFormModal />
-      },
-      {
-        path: "spots/:spotId/edit",
+        path: "spots/edit/:spotId",
         element: <EditSpotModal />
       },
       {

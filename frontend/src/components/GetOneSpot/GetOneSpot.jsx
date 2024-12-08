@@ -12,11 +12,11 @@ import { useEffect,useState } from "react";
 
 import { useParams } from "react-router-dom";
 
-import EditSpotModal from "./EditSpotModal";
-
 import AddReviewModal from "./AddReviewModal"
 
 import DeleteReview from "./DeleteReview";
+
+import { getImagesBySpot } from "../../store/spotImage";
 
 import "./GetOneSpot.css"
 
@@ -38,12 +38,13 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
     const spot = useSelector(state => state.spots.spot || {});
 
     const reviews = useSelector(state => state.reviews.reviewsById.Reviews || []);
-    console.log("spot =", spot, "reviews =", reviews)
+    // console.log("spot =", spot, "reviews =", reviews)
 
      //Load the specific spot
      useEffect(() => {
         dispatch(OneSpot(spotId));
         dispatch(reviewsBySpotId(spotId))
+        dispatch(getImagesBySpot(spotId))
         setIsLoading(true);
     }, [dispatch, spotId]);
 
@@ -56,17 +57,14 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
     const sessionUser = useSelector((state) => {
         return state.session.user});
 
+    //load spots images
+    const loadedImages = useSelector((state) => {
+        return state.images.images
+    })
+    
     let userViewMod;
     //spot belongs to user
-    if (sessionUser && sessionUser.id === spot.ownerId ) {
-        userViewMod =(
-            <div className="GOSuserLogged">
-                <EditSpotModal />
-            </div>
-        )
-
-    //spot does not belong to user //!NEEDS TO BE CHANGED SO THAT THE USER CAN ONLY SUBMIT REVIEW IF THEY DONT ALREADY HAVE ONE
-    }else if (sessionUser && sessionUser.id !== spot.ownerId ){
+    if (sessionUser && sessionUser.id !== spot.ownerId ){
         const userHasReviewed = reviews.some(review => review.userId === sessionUser.id);
         userViewMod = (
             <>
@@ -92,7 +90,7 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
                 <h3>{reviews.length} Review{reviews.length !== 1 ? 's' : ''}</h3>
                     <ul className="singleSpotReviewsList">
                         {reviews.map((review) => (
-                            <li key={review.id}>
+                            <li className="SingleReview" key={review.id}>
                                 <p>{review.ReviewUser.firstName}: {review.review}</p>
                                 <p>Stars <img src="/favicon-16x16.png" alt="Star Rating" />: {Number(review.stars).toFixed(1)}/5</p>
                                 <p>Date created: {new Date(review.createdAt).getMonth() + 1}/{new Date(review.createdAt).getFullYear()}</p>
@@ -114,23 +112,29 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
 /***********************************************************************************************************************************************/
 //*                             HTML
 /***********************************************************************************************************************************************/
-    
+    console.log("small image array =", loadedImages)
 //NOTE this contains INLINE STYLING!!!
     if(isLoading){
         return (
-            <div className="singleSpotPAge">
+            <div className="singleSpotGrid">
                 <div className="singleSpot">
-                <h2>{spot.name}</h2>
-                <p>Location: {spot.city}, {spot.state}, {spot.country}</p>
-                <img className="SingleSpotImage" src={spot.previewImage} alt="Preview Image" />
-                <div className="smallImages">
-                    {spot.images && spot.previewImage.length > 0 ? (
-                        spot.previewImage.slice(0, 4).map((image, index) => (
-                            <img key={index} className="SmallImage" src={image} alt={`Thumbnail ${index + 1}`} />
-                        ))
-                    ) : (
-                        <p>No additional images available.</p>
-                    )}
+                    <h2>{spot.name}</h2>
+                    <p>Location: {spot.city}, {spot.state}, {spot.country}</p>
+                    <div className="ImageBlock">
+                        
+                        <div className="smallImages">
+                            {loadedImages.length > 0 ? (
+                                loadedImages.slice(0, 4).map((image, index) => (
+                                    <>
+                                    {/* <p>{console.log("map test= ", image.url)} </p> */}
+                                    <img key={index} className="SmallImage" src={image.url} alt={`Thumbnail ${index + 1}`} />
+                                    </>
+                                ))
+                            ) : (
+                                <p>No additional images available.</p>
+                            )}
+                    </div>
+                    <img className="MainImage" src={spot.previewImage} alt="Preview Image" />
                 </div>
                 <p>Hosted by {spot.hostFirstName} {spot.hostLastName}</p>
                 <p>Description: {spot.description}</p>

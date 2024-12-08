@@ -48,7 +48,7 @@ export const getSpots = () => async (dispatch) => {
     });
 
     const spots = await response.json();
-    console.log("TEST STORE", spots) 
+    // console.log("TEST STORE", spots) 
     dispatch(getAllSpotsAO(spots.Spots));
     return spots.Spots;
 };
@@ -92,7 +92,7 @@ export const editSpot = (spot) => async (dispatch) => {
 
 //Create new spot
 export const createSpot = (spot) => async (dispatch) => {
-    const {address, city, state, country, lat,lng, title, description, price, previewImage} = spot;
+    const {address, city, state, country, lat,lng, title, description, price} = spot; //! PReviewImage removed!!!!
     const response = await csrfFetch( '/api/spots/', {
         method: "POST",
         body: JSON.stringify({
@@ -125,11 +125,22 @@ export const getSpotsByUserId = (userId) => async (dispatch) => {
         method: "GET"
     })
     const returnedSpots = await usersSpots.json();
-    console.log("MUS STORE = ", returnedSpots)
+    // console.log("MUS STORE = ", returnedSpots)
     dispatch(getAllSpotsAO(returnedSpots))
     return returnedSpots;
 };
 
+//Delete spot
+export const deleteSpot = (spotId,userId) => async (dispatch) => { 
+    //send delete request to back end
+    const deleteReq = await csrfFetch((`/api/spots/${spotId}`), {
+        method: "DELETE",
+    })
+
+    dispatch(getSpotsByUserId(userId));
+    const deleteRes = await deleteReq.json();
+    return deleteRes;
+}
 /***********************************************************************************************************************************************/
 //*                             REDUCER
 /***********************************************************************************************************************************************/

@@ -125,6 +125,7 @@ const urls = {
         },
     }
 
+    console.log("CS IMAGE TEST", spot.id,"URLS = ", urls)
     //add images to spotImage table and update state
     await dispatch(addImageBySpotId(spot.id,urls))
     
@@ -138,11 +139,11 @@ const urls = {
 
     return(
         <>
-            <h2>Create a new spot</h2>
-                <h3>Where is your Spot Located?</h3>
-                    <p>Guests will only get your exact address once they booked a reservation</p>
+            <h2 className='CNStitle'>Create a new spot</h2>
+                <h3 className='CNSsub-title'>Where is your Spot Located?</h3>
+                    <p className='CNStitleP'>Guests will only get your exact address once they booked a reservation</p>
                     <form onSubmit={handleSubmit}>
-                <label>
+                <label className="creatSpotLabel">
                     Street Address
                     <input
                         type="text"

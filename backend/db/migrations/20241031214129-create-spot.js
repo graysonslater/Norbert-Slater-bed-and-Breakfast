@@ -49,7 +49,7 @@ module.exports = {
         type: Sequelize.DECIMAL(2,1)
       },
       previewImage: {
-        type: Sequelize.BLOB
+        type: Sequelize.STRING()
       },
       createdAt: {
         allowNull: false,

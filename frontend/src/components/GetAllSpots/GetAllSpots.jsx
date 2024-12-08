@@ -13,7 +13,6 @@ function GetAllSpots (){
         // console.log("test COMPONENT",state.spots) //shows what the AO is bringing into the function!!!
         return state.spots}) //spots contains a list of all spots
     console.log("get all spots obj= ", spots)
-    // console.log("Function TEST 2",spots)
 
     //load all spots
     useEffect(() => {
@@ -36,8 +35,7 @@ function GetAllSpots (){
                         "New"
                     )}
                 </p>
-                <p>{spot.address}, {spot.city}, {spot.state}, {spot.country}</p>
-                <p>${spot.price} night</p>
+                <p>{spot.city}, {spot.state}, {spot.country}</p>
             </Link>
         </li>
     ))}

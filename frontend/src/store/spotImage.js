@@ -22,23 +22,26 @@ const getImagesBySpotAO = (images) => {
 //*                            THUNKS
 /***********************************************************************************************************************************************/
 
+//get images by spot id
 export const getImagesBySpot = (spotId) => async (dispatch) => {
     const spotResponse = await csrfFetch((`/api/spots/spotImages/${spotId}`), {
         method: "GET"
     });
 
-    const response = spotResponse.json();
+    const response = await spotResponse.json();
     dispatch(getImagesBySpotAO(response));
 
     return response;
 };
 
+//add images by spot id - used in create spot
 export const addImageBySpotId = (spotId,urls) => async (dispatch) => {
     
        Object.entries(urls).forEach(async ([key, value]) => {
             //if image url exists
             if(value.image){
                 //post image to spotImage table
+                console.log("ADD IMAGE THUNK = ",value.image)
                 await csrfFetch((`/api/spots/${spotId}/images`), {
                     method: "POST",
                     body: JSON.stringify({

@@ -86,7 +86,7 @@ const [price, setPrice] = useState(spot.price);
 
     return(
         <>
-            <h2>Edit Spot</h2>
+            <h2>Update Your Spot</h2>
             <form onSubmit={handleSubmit}>
                 <label>
                     Address
@@ -160,7 +160,7 @@ const [price, setPrice] = useState(spot.price);
                         onChange={(e) => setPrice(e.target.value)}
                     />
                 </label>
-                <button type="submit">Update Spot</button>
+                <button type="submit">Update your Spot</button>
             </form>
         </>
     )
