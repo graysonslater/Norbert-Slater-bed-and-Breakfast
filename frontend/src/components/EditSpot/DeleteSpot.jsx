@@ -28,8 +28,8 @@ function DeleteSpot({spotId}) {
 /***********************************************************************************************************************************************/
 //*                             form submission
 /**********************************************************************************************************************************************/
-    console.log("DS TEST= ", spotId)
-const handleDelete = (e) => {
+    
+    const handleDelete = (e) => {
     e.preventDefault();
     dispatch(deleteSpot(spotId,sessionUser.id))
     dispatch(getSpotsByUserId(sessionUser.id));

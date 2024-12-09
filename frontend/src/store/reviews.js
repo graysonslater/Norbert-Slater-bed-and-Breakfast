@@ -48,7 +48,6 @@ export const reviewsBySpotId = (spotId) => async (dispatch) => {
 export const createReview = (reviews) => async (dispatch) => {
     
     const {id, review, stars} = reviews;
-    console.log("REVIEW STORE =", reviews)
     const newReview = await csrfFetch(`/api/spots/${id}/reviews`, {
         method: "POST",
         body: JSON.stringify({
@@ -64,7 +63,6 @@ export const createReview = (reviews) => async (dispatch) => {
         method: "GET"
     });
     const response = await reviewResponse.json();
-    console.log("STORE CREATE review = ", response);
     dispatch(reviewsBySpotIdAO(response));
     //update spot state 
     dispatch(OneSpot(id))

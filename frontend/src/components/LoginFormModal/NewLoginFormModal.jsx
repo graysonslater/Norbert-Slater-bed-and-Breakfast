@@ -35,7 +35,6 @@ function NewLoginFormModal(){
     };
 
     const handleToggle = (e) => { //delete event/ toggle
-        console.log("BUBbLE TEST")
         e.preventDefault();
         setShowConfirm(!showConfirm)
     }

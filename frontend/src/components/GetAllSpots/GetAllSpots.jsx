@@ -12,7 +12,7 @@ function GetAllSpots (){
     const {spots} = useSelector((state) => {
         // console.log("test COMPONENT",state.spots) //shows what the AO is bringing into the function!!!
         return state.spots}) //spots contains a list of all spots
-    console.log("get all spots obj= ", spots)
+    
 
     //load all spots
     useEffect(() => {

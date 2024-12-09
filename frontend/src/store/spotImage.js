@@ -41,7 +41,6 @@ export const addImageBySpotId = (spotId,urls) => async (dispatch) => {
             //if image url exists
             if(value.image){
                 //post image to spotImage table
-                console.log("ADD IMAGE THUNK = ",value.image)
                 await csrfFetch((`/api/spots/${spotId}/images`), {
                     method: "POST",
                     body: JSON.stringify({

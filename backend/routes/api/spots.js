@@ -135,7 +135,7 @@ router.post('/:spotId/images',requireAuth, restoreUser, async(req,res)=>{
         },
         attributes: ['url']
     });
-    console.log("PREVIEWS URL =", typeof previews[0].dataValues.url)
+    
 
     //assign array of urls to previewImage
     spot.previewImage =  previews[0].dataValues.url //!MAY NEED TO BE ALTERED!!!!!!!

@@ -125,7 +125,6 @@ const urls = {
         },
     }
 
-    console.log("CS IMAGE TEST", spot.id,"URLS = ", urls)
     //add images to spotImage table and update state
     await dispatch(addImageBySpotId(spot.id,urls))
     
