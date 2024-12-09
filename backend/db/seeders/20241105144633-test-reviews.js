@@ -30,6 +30,30 @@ module.exports = {
           userId:1,
           review: 'test review 2',
           stars: 4.6  
+        },
+        {
+          spotId: 1,
+          userId:1,
+          review: 'test review 3',
+          stars: 2  
+        },
+        {
+          spotId: 2,
+          userId:1,
+          review: 'test review 4',
+          stars: 2  
+        },
+        {
+          spotId: 3,
+          userId:2,
+          review: 'test review 5',
+          stars: 2  
+        },
+        {
+          spotId: 3,
+          userId:2,
+          review: 'test review 6',
+          stars: 2  
         }
     ], { validate: true });
 
