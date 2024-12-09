@@ -33,6 +33,7 @@ module.exports = {
         "name": "New York Stay",
         "description": "Place where web developers are created",
         "price": 123,
+        "previewImage":"https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg"
       },
       {
         "ownerId": 1,
@@ -45,6 +46,7 @@ module.exports = {
         "name": "Vermont Stay",
         "description": "Place where web developers are created",
         "price": 123,
+        "previewImage":"https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg"
       }
     ], { validate: true });
   },
