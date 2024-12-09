@@ -1,7 +1,7 @@
 /***********************************************************************************************************************************************/
 //*                             IMPORTS
 /***********************************************************************************************************************************************/
-
+/* eslint-disable */
 import { csrfFetch } from './csrf'; 
 
 import { OneSpot } from './spots';
@@ -17,15 +17,6 @@ const reviewsBySpotIdAO = (reviews) => {
     return {
         type: GET_REVIEWS_SPOTID,
         payload: reviews
-    }
-};
-
-//create a review
-const createReviewAO = (review) => {
-    // console.log('createreviewAO printout')
-    return{
-        type: CREATE_REVIEW,
-        payload: review
     }
 };
 

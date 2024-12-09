@@ -1,7 +1,7 @@
 /***********************************************************************************************************************************************/
 //*                             IMPORTS
 /***********************************************************************************************************************************************/
-
+/* eslint-disable */
 import CustomModal from "../../context/CustomModal"
 
 import { useState } from 'react';
@@ -18,7 +18,6 @@ import './SignupFormModal.css';
 
 function NewSignupFormModal() {
   const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
