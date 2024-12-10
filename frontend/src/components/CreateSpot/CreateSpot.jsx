@@ -186,6 +186,7 @@ const urls = {
                     Latitude
                     <input
                         type="number"
+                        min={0}
                         placeholder="lattitude..."
                         value={lat}
                         onChange={(e) => setLat(e.target.value)}
@@ -195,6 +196,7 @@ const urls = {
                     Longitude
                     <input
                         type="number"
+                        min={0}
                         placeholder="longitude..."
                         value={lng}
                         onChange={(e) => setLng(e.target.value)}
@@ -232,6 +234,7 @@ const urls = {
                         type="number"
                         placeholder="Price per night (USD)"
                         value={price}
+                        min={0}
                         onChange={(e) => setPrice(e.target.value)}
                     />
                     {errors.price && <span className="error">{errors.price}</span>}
