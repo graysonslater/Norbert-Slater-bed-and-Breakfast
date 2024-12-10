@@ -185,7 +185,7 @@ const urls = {
                 <label>
                     Latitude
                     <input
-                        type="text"
+                        type="number"
                         placeholder="lattitude..."
                         value={lat}
                         onChange={(e) => setLat(e.target.value)}
@@ -194,7 +194,7 @@ const urls = {
                 <label>
                     Longitude
                     <input
-                        type="text"
+                        type="number"
                         placeholder="longitude..."
                         value={lng}
                         onChange={(e) => setLng(e.target.value)}

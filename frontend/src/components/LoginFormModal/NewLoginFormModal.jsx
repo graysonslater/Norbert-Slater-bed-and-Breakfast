@@ -28,12 +28,15 @@ function NewLoginFormModal(){
 //*                             event handlers
 /***********************************************************************************************************************************************/
 
+    
     const isFormValid = () => {
         return credential.length >= 4 && password.length >= 6;
     };
 
     const handleToggle = (e) => { //delete event/ toggle
         e.preventDefault();
+        setCredential("");
+        setPassword("");
         setShowConfirm(!showConfirm)
     }
 
@@ -41,6 +44,9 @@ function NewLoginFormModal(){
         e.preventDefault();
         setErrors({});
         return dispatch(sessionActions.login({ credential, password }))
+          .then(() => {
+                resetForm();}
+          )
           .catch(async (res) => {
             const data = await res.json();
             if (data?.errors) {
@@ -71,6 +77,7 @@ function NewLoginFormModal(){
                         <input
                             type="text"
                             value={credential}
+                            
                             onChange={(e) => setCredential(e.target.value)}
                             required
                         />
