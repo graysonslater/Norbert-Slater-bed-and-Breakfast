@@ -93,7 +93,7 @@ export const editSpot = (spot) => async (dispatch) => {
 //Create new spot
 export const createSpot = (spot) => async (dispatch) => {
     const {address, city, state, country, lat,lng, title, description, price} = spot; //! PReviewImage removed!!!!
-    const response = await csrfFetch( '/api/spots/', {
+    const response = await csrfFetch( '/api/spots', {
         method: "POST",
         body: JSON.stringify({
             address, 
