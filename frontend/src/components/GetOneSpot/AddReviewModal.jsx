@@ -29,7 +29,14 @@ function AddReviewModal() {
 //*                             form submission
 /***********************************************************************************************************************************************/
 
-    const toggleModal = () => setShowSubmit(!showSubmit);
+    const toggleModal = () => {
+        if (showSubmit) {
+            setReview(""); 
+            setStars("");  
+            setServerErrors([]); 
+        }
+        setShowSubmit(!showSubmit);
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -111,7 +118,7 @@ const [serverErrors, setServerErrors] = useState([]);
                         <div className="button-container">
                             <button 
                                 type="submit" 
-                                disabled={review.length < 10 || stars === undefined}
+                                disabled={review === '' || stars === undefined}
                                 className="submit-button"
                             >
                                 Submit Your Review
