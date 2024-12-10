@@ -31,10 +31,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       lat: {
-        type: Sequelize.FLOAT
+        type: Sequelize.FLOAT()
       },
       lng: {
-        type: Sequelize.FLOAT
+        type: Sequelize.FLOAT()
       },
       name: {
         type: Sequelize.STRING(50)

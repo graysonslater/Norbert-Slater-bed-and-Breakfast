@@ -488,14 +488,6 @@ const validateCreate = [
     check('country')
         .exists({ checkFalsy: true })
         .withMessage("country is required"),
-    check('lat')
-        .optional()
-        .isLength({min: 6})
-        .withMessage("Latitude is not valid"),
-    check('lng')
-        .optional()
-        .isLength({min: 6})
-        .withMessage("Longitude is not valid"),
     check('description')
         .isLength({min: 6})
         .withMessage("Description is required"),
