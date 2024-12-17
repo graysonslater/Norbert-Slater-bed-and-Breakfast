@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSpots } from "../../store/spots";
 import { useEffect } from "react";
 import { Link } from 'react-router-dom';
-import './GetAllSpots.Css'
+import './GetAllSpots.css'
 
 function GetAllSpots (){
 
