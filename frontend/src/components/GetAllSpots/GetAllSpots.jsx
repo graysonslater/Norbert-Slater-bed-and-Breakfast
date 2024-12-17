@@ -22,9 +22,7 @@ function GetAllSpots (){
     //HTML
     return(
 <ul className="allSpots">
-    <>
-    {console.log("TEST LOG")}
-    </>
+    
     {spots.map((spot) => (
         <li key={spot.id} title={spot.name}> {/* Tooltip added here */}
             <Link to={`/spots/${spot.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -38,6 +36,9 @@ function GetAllSpots (){
                         "New"
                     )}
                 </p>
+                <>
+                {console.log(spot)}
+                </>
                 <p>{spot.city}, {spot.state}, {spot.country}</p>
             </Link>
         </li>
