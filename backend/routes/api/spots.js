@@ -222,7 +222,7 @@ router.get('/:spotId/reviews', async (req,res)=>{
     });
 
     //check if reviews exist
-    if(foundReviews.length === 0)res.status(200).json({message:"No reviews for this spot"});
+    if(foundReviews.length === 0) return res.status(200).json({message:"No reviews for this spot"});
 
     //response
     res.json({Reviews:foundReviews});

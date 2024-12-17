@@ -82,7 +82,7 @@ const [serverErrors, setServerErrors] = useState([]);
             {showSubmit && (
                 <CustomModal onClose={toggleModal}>
                     <h2>How was your stay?</h2>
-                    {Object.keys(serverErrors).length > 0 && (
+                    {serverErrors && Object.keys(serverErrors).length > 0 && (
                         <div className="error-messages">
                             <p>Error:</p>
                             <ul> 
