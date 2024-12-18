@@ -295,14 +295,6 @@ const validateEdit = [
         .optional({ checkFalsy: true })
         .exists()
         .withMessage("country is required"),
-    check('lat')
-        .optional()
-        .isLength({min: 6})
-        .withMessage("Latitude is not valid"),
-    check('lng')
-        .optional()
-        .isLength({min: 6})
-        .withMessage("Longitude is not valid"),
     check('description')
         .optional()
         .isLength({min: 6})
@@ -320,7 +312,7 @@ const validateEdit = [
 
 //Edit a spot
 router.patch('/:spotId', requireAuth, validateEdit,async(req, res) => {
-    
+    console.log("BACKEND TEST")
     const spotIdParam = req.params.spotId;
     const {address, city, state, country, lat,lng, name, description, price} = req.body;
 
@@ -333,7 +325,7 @@ router.patch('/:spotId', requireAuth, validateEdit,async(req, res) => {
     //Check if spot belongs to current user
     if(spot.ownerId !== req.user.id) {
         return res.status(400).json({message:"bad request"});
-    } else if(!validateCreate) {
+    } else if(!validateEdit) {
         return res.status(400).json({message:"bad validate"});
     }
 
@@ -346,6 +338,8 @@ router.patch('/:spotId', requireAuth, validateEdit,async(req, res) => {
         price
     });
 
+    await spot.save()
+    console.log("BACK END EDIT= ",spot)
     return res.status(200).json(spot);
 })
 
