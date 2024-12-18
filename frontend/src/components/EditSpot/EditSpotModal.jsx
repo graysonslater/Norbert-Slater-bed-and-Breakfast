@@ -14,6 +14,8 @@ import { OneSpot } from '../../store/spots';
 
 import { useParams } from "react-router-dom";
 
+import './EditSpot.css';
+
 /***********************************************************************************************************************************************/
 //*                             INIT/Function declaration
 /***********************************************************************************************************************************************/
@@ -41,14 +43,14 @@ function EditSpotModal() {
 //*                             form submission
 /***********************************************************************************************************************************************/
 
-    const handleSubmit = (e) => {
+    const handleSubmit =  async(e) => {
         //prevent auto submit
         e.preventDefault();
         
         // dispatch(OneSpot(spotId)) //!STORE IS UPDATING STATE AT editSpotAO!!!!!!
 
         //dispatch new data for update
-        dispatch(editSpot({
+        await dispatch(editSpot({
             id: spotId, 
             address, 
             city,
@@ -86,8 +88,8 @@ const [price, setPrice] = useState(spot.price);
 
     return(
         <>
-            <h2>Update Your Spot</h2>
-            <form onSubmit={handleSubmit}>
+            <h2 className='updateTitle'>Update Your Spot</h2>
+            <form className="editForm" onSubmit={handleSubmit}>
                 <label>
                     Address
                     <input

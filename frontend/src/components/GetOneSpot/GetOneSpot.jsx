@@ -10,7 +10,7 @@ import { reviewsBySpotId } from "../../store/reviews";
 
 import { useEffect,useState } from "react";
 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import AddReviewModal from "./AddReviewModal"
 
@@ -29,6 +29,7 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
     const {spotId} = useParams();
     //loading state
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
 
 /***********************************************************************************************************************************************/
 //*                             Store params
@@ -77,7 +78,15 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
                 </div>
             </>
         )
-    }   
+    } else if (sessionUser && sessionUser.id === spot.ownerId) {
+        
+        userViewMod = (
+            <div className="GOSLoggedEdit">
+                <button className="editspotbutton" onClick={() => navigate(`/spots/${spot.id}/edit`)}> Edit Spot</button>
+            </div>
+            
+        )
+    }
 
 /***********************************************************************************************************************************************/
 //*                             Reviews viewing conditional
@@ -112,7 +121,7 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
 /***********************************************************************************************************************************************/
 //*                             HTML
 /***********************************************************************************************************************************************/
-    console.log(spot)
+
 //NOTE this contains INLINE STYLING!!!
     if(isLoading){
         return (
@@ -152,6 +161,7 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
                     )}
                 </p>
 
+                    {/* EDIT BUTTON */}
             </div>
                 <div className="userViewMod">
                     {userViewMod}

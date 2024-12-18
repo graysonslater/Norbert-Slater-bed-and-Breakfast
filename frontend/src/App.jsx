@@ -68,7 +68,7 @@ const router = createBrowserRouter([
         element: <GetOneSpot />
       },
       {
-        path: "spots/edit/:spotId",
+        path: "spots/:spotId/edit",
         element: <EditSpotModal />
       },
       {

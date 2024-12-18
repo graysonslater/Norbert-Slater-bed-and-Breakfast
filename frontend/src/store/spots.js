@@ -67,9 +67,10 @@ export const OneSpot = (spotId) => async (dispatch) => {
 
 //Edit Spot
 export const editSpot = (spot) => async (dispatch) => {
-    //console.log('STORE EDIT TEST', spot)
+    console.log('STORE EDIT TEST', spot)
     const {id, address, city, state, country, lat,lng, name, description, price, previewImage} = spot;
-    const response = await csrfFetch(`/api/spots/${id}`, {
+   console.log(typeof Number(id))
+    const response = await csrfFetch(`/api/spots/${Number(id)}`, {
         method: "PATCH",
         body: JSON.stringify({
             address, 
