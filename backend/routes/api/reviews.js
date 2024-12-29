@@ -72,6 +72,7 @@ const validateReviewUpdate = [
 
 //Edit a Review
 router.patch('/:reviewId', requireAuth, validateReviewUpdate, async (req,res) => {
+   
     //get reviewId from url
     const reviewId = req.params.reviewId;
 
@@ -83,9 +84,10 @@ router.patch('/:reviewId', requireAuth, validateReviewUpdate, async (req,res) =>
     if(foundReview.userId !== req.user.id) res.status(401).json({unautherized:'Review must belong to the current user'});
 
     //grab data from req
-    const {review, stars} =req.body;
+    const {reviewState, stars} =req.body;
+
     //update the review
-    await foundReview.update({review, stars});
+    await foundReview.update({review: reviewState, stars: Number(stars)});
 
     //get the spot
     const spot = await Spot.findByPk(foundReview.spotId);
@@ -99,10 +101,10 @@ router.patch('/:reviewId', requireAuth, validateReviewUpdate, async (req,res) =>
     // Only update if avgRating has changed
     if (spot.avgRating !== avgRating) {
         spot.avgRating = avgRating; // Update average rating
-        await spot.save(); // Save changes made to DB
+        
     }
-
-    res.status(200).json(foundReview);
+    await spot.save(); // Save changes made to DB
+    return res.status(200).json(foundReview);
 });
 
 //Delete a Review

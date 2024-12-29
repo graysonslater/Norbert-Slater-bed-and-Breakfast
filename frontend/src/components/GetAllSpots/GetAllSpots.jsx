@@ -36,9 +36,6 @@ function GetAllSpots (){
                         "New"
                     )}
                 </p>
-                <>
-                {console.log(spot)}
-                </>
                 <p>{spot.city}, {spot.state}, {spot.country}</p>
             </Link>
         </li>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps, no-unused-vars */
 /***********************************************************************************************************************************************/
 //*                             IMPORTS
 /***********************************************************************************************************************************************/
@@ -16,6 +17,8 @@ import AddReviewModal from "./AddReviewModal"
 
 import DeleteReview from "./DeleteReview";
 
+import EditReviewModal from "./EditReview";
+
 import { getImagesBySpot } from "../../store/spotImage";
 
 import "./GetOneSpot.css"
@@ -27,6 +30,7 @@ import "./GetOneSpot.css"
 function GetOneSpot() { //function compnents should be in Pascal case!!
     const dispatch = useDispatch();
     const {spotId} = useParams();
+
     //loading state
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
@@ -35,11 +39,21 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
 //*                             Store params
 /***********************************************************************************************************************************************/
 
+    //DETERMINE IF USER IS LOGGED IN
+    const sessionUser = useSelector((state) => {
+        return state.session.user});
+    
     //Get the spot and reviews objects
     const spot = useSelector(state => state.spots.spot || {});
 
     const reviews = useSelector(state => state.reviews.reviewsById.Reviews || []);
-    // console.log("spot =", spot, "reviews =", reviews)
+
+    //Get users review (if exists)
+    if (sessionUser){
+        const userReview = reviews.find(review => review.userId === sessionUser.id)
+    }
+    
+    
 
      //Load the specific spot
      useEffect(() => {
@@ -53,10 +67,6 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
 /***********************************************************************************************************************************************/
 //*                             USER IS LOGGGED IN conditional
 /***********************************************************************************************************************************************/
-
-    //DETERMINE IF USER IS LOGGED IN
-    const sessionUser = useSelector((state) => {
-        return state.session.user});
 
     //load spots images
     const loadedImages = useSelector((state) => {
@@ -103,8 +113,11 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
                                 <p>{review.ReviewUser.firstName}: {review.review}</p>
                                 <p>Stars <img src="/favicon-16x16.png" alt="Star Rating" />: {Number(review.stars).toFixed(1)}/5</p>
                                 <p>Date created: {new Date(review.createdAt).getMonth() + 1}/{new Date(review.createdAt).getFullYear()}</p>
-                                <p>
+                                <p className="deleteRevModalButton">
                                     {review.userId === sessionUser.id && <DeleteReview reviewId={review.id}/> }
+                                </p>
+                                <p className="editRevModalButton">
+                                    {review.userId === sessionUser.id && <EditReviewModal reviewId={review.id}/> }
                                 </p>
                             </li>
                         ))}  
