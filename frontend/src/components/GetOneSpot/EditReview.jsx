@@ -70,7 +70,7 @@ function EditReviewModal(reviewId) {
             stars,
             reviewState
         }))
-
+        dispatch(reviewsBySpotId(sessionUser.id))
         //close modal
         toggleModal(); 
     };
