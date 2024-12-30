@@ -58,7 +58,6 @@ function EditReviewModal(reviewId) {
             setReview(userReview.review); 
             setStars(userReview.stars);  
         }
-        dispatch(reviewsBySpotId(spotId));
         setShowSubmit(!showSubmit);
     };
 
@@ -72,7 +71,8 @@ function EditReviewModal(reviewId) {
             stars,
             reviewState
         }))
-        dispatch(reviewsBySpotId(spotId))
+        
+        await dispatch(reviewsBySpotId(spotId))
         //close modal
         toggleModal(); 
     };
