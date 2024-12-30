@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { editReview, reviewsBySpotId } from '../../store/reviews';
 
+import { useParams } from 'react-router-dom';
+
 import CustomModal from '../../context/CustomModal';
 
 /***********************************************************************************************************************************************/
@@ -20,8 +22,8 @@ function EditReviewModal(reviewId) {
     const dispatch = useDispatch();
 
     //used to help navigate back  to spot page
-    // let {spotId} = useParams();
-    // spotId = Number(spotId)
+    let {spotId} = useParams();
+    spotId = Number(spotId)
 
 /***********************************************************************************************************************************************/
 //*                             Get Review
@@ -56,7 +58,7 @@ function EditReviewModal(reviewId) {
             setReview(userReview.review); 
             setStars(userReview.stars);  
         }
-        dispatch(reviewsBySpotId(sessionUser.id))  ;
+        dispatch(reviewsBySpotId(spotId));
         setShowSubmit(!showSubmit);
     };
 
@@ -70,7 +72,7 @@ function EditReviewModal(reviewId) {
             stars,
             reviewState
         }))
-        dispatch(reviewsBySpotId(sessionUser.id))
+        dispatch(reviewsBySpotId(spotId))
         //close modal
         toggleModal(); 
     };
