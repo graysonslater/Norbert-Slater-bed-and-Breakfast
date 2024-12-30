@@ -8,6 +8,8 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 //Important to note useNavigate and Navigate are different functions!!!!
 
+import { OneSpot } from "../../store/spots";
+
 import { editReview, reviewsBySpotId } from '../../store/reviews';
 
 import { useParams } from 'react-router-dom';
@@ -71,8 +73,9 @@ function EditReviewModal(reviewId) {
             stars,
             reviewState
         }))
-        
+
         await dispatch(reviewsBySpotId(spotId))
+        await dispatch(OneSpot(spotId))
         //close modal
         toggleModal(); 
     };
