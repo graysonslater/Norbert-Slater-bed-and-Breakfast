@@ -85,7 +85,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     address: {
       type: DataTypes.STRING(256),
-      unique: {msg: 'address must be unique'}
+      // unique: {msg: 'address must be unique'}
     },
     city: {
       type: DataTypes.STRING(256),

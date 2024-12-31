@@ -46,8 +46,11 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
     //Get the spot and reviews objects
     const spot = useSelector(state => state.spots.spot || {});
 
-    const reviews = useSelector(state => state.reviews.reviewsById.Reviews || []);
-
+    const reviews = useSelector((state) => {
+        // console.log("REV SELECTOR= ", state.reviews.reviewsById)
+        return state.reviews.reviewsById.Reviews || [];
+    });
+    
     //Get users review (if exists)
     if (sessionUser){
         const userReview = reviews.find(review => review.userId === sessionUser.id)

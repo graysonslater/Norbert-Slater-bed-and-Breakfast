@@ -10,7 +10,7 @@ import { csrfFetch } from './csrf';
 
 const GET_ALL_SPOTS = "spots/getAllSpots";
 const GET_ONE_SPOT = 'spots/getOneSpot';
-const EDIT_SPOT = "spots/editSpot"
+const EDIT_SPOT = "spots/editSpot";
 
 //get all spots
 const getAllSpotsAO = (spots) => { //Note that spots is plural!!!
@@ -24,7 +24,7 @@ const getAllSpotsAO = (spots) => { //Note that spots is plural!!!
 const getOneSpot = (spot) => { //Note that spot is singular!!!
     return {
         type: GET_ONE_SPOT,
-        payload: spot//review removed
+        payload: spot
     }
 };
 
@@ -34,7 +34,7 @@ const editSpotAO = (spot) => {
         type: EDIT_SPOT,
         payload: spot
     }
-}
+};
 
 /***********************************************************************************************************************************************/
 //*                            THUNKS
@@ -142,6 +142,8 @@ export const deleteSpot = (spotId,userId) => async (dispatch) => {
     const deleteRes = await deleteReq.json();
     return deleteRes;
 }
+
+
 /***********************************************************************************************************************************************/
 //*                             REDUCER
 /***********************************************************************************************************************************************/

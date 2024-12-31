@@ -203,11 +203,12 @@ router.post('/:spotId/reviews', requireAuth, async (req,res) => {
 
 //Get all Reviews by a Spot's id
 router.get('/:spotId/reviews', async (req,res)=>{
+    console.log("BACK END TEST")
     //get spotId from url
-    const id = req.params.spotId;
+    const id = Number(req.params.spotId);
     //check if spot exists
     const checkSpot = await Spot.findByPk(id);
-
+    // console.log("BACK END TEST 2= ", id)
     if(!checkSpot)res.status(404).json({message:"Spot couldn't be found"})
     //get all reviews for spot
     const foundReviews = await Review.findAll({
@@ -220,7 +221,7 @@ router.get('/:spotId/reviews', async (req,res)=>{
         ],
         order: [['createdAt', 'DESC']]
     });
-
+    console.log("BACK END TEST= ", id)
     //check if reviews exist
     if(foundReviews.length === 0) return res.status(200).json({message:"No reviews for this spot"});
 
@@ -454,10 +455,8 @@ router.get('/', validateQuery, async (req, res) => {
     const pagination = {
         limit: size,
         offset: size * (page - 1),
-
+        order: [['createdAt', 'DESC']]
     };
-
-
 
     const allSpots = await Spot.findAll(pagination);
 

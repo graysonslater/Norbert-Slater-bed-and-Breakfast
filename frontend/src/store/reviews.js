@@ -54,6 +54,7 @@ const getOneReviewAO = (review) => {
 
 //Get reviews by spot Id
 export const reviewsBySpotId = (spotId) => async (dispatch) => {
+    console.log("STORE TEST= ", spotId)
     const reviewResponse = await csrfFetch((`/api/spots/${spotId}/reviews`), {
         method: "GET"
     });

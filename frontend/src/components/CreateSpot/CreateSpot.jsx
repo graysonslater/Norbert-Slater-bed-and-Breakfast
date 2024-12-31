@@ -58,6 +58,7 @@ const handleSubmit = async (e) => {
     if (!address) {
         validationErrors.address = "Street address is required.";
     }
+    
     if (!city) {
         validationErrors.city = "City is required.";
     }

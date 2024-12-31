@@ -81,7 +81,7 @@ router.post(
     const { firstName, lastName, email, password, username } = req.body;
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({ firstName, lastName, email, username, hashedPassword });
-
+    console.log("test SIGNNUP= ", user.firstName)
     const safeUser = {
       id: user.id,
       firstName: user.firstName,

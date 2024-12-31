@@ -38,10 +38,10 @@ function EditReviewModal(reviewId) {
     //get one review
     const reviews = useSelector(state => state.reviews.reviewsById.Reviews || []);
     const userReview = reviews.find(review => review.userId === sessionUser.id)
-
-    useEffect(() => {
-        dispatch(reviewsBySpotId(sessionUser.id))   
-       }, [dispatch]);
+        
+    // useEffect(() => {
+    //     dispatch(reviewsBySpotId(sessionUser.id))   
+    //    }, [dispatch]);
 
 /***********************************************************************************************************************************************/
 //*                             setting state
