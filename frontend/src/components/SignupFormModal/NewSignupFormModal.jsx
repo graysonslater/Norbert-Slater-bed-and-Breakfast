@@ -150,5 +150,5 @@ const isFormValid = () => {
     </>
   );
 }
-
+console.log("TEST LOG")
 export default NewSignupFormModal;
