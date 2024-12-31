@@ -34,12 +34,12 @@ function NewSignupFormModal() {
 const handleToggle = (e) => { //delete event/ toggle
     
     e.preventDefault();
-    setEmail("")
-    setUsername("")
-    setFirstName("")
-    setLastName("")
-    setPassword("")
-    setConfirmPassword("")
+    setEmail()
+    setUsername()
+    setFirstName()
+    setLastName()
+    setPassword()
+    setConfirmPassword()
     setShowConfirm(!showConfirm)
 }
 
