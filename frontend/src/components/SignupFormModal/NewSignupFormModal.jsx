@@ -44,9 +44,8 @@ const handleToggle = (e) => { //delete event/ toggle
 }
 
 const isFormValid = () => {
-  if(username && password){
-    return email && username.length >= 4 && firstName && lastName && password.length >= 6  && confirmPassword;
-  }else{ return false}
+  
+    return email && username && firstName && lastName && password && confirmPassword;
 };
 
   const handleSubmit = (e) => {
