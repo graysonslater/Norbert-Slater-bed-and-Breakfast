@@ -54,7 +54,6 @@ const getOneReviewAO = (review) => {
 
 //Get reviews by spot Id
 export const reviewsBySpotId = (spotId) => async (dispatch) => {
-    console.log("STORE TEST= ", spotId)
     const reviewResponse = await csrfFetch((`/api/spots/${spotId}/reviews`), {
         method: "GET"
     });
@@ -68,6 +67,7 @@ export const reviewsBySpotId = (spotId) => async (dispatch) => {
 export const createReview = (reviews) => async (dispatch) => {
     
     const {id, review, stars} = reviews;
+    console.log("STORE= ", typeof stars)
     const newReview = await csrfFetch(`/api/spots/${id}/reviews`, {
         method: "POST",
         body: JSON.stringify({
@@ -115,6 +115,7 @@ export const editReview = (reviewUpdate) => async (dispatch) => {
     const {reviewId} = reviewUpdate.reviewId;
     
     const {stars, reviewState} = reviewUpdate;
+    console.lgo
     const updatedReview = await csrfFetch((`/api/reviews/${reviewId}`), {
         method: "PATCH",
         body: JSON.stringify({
@@ -122,9 +123,7 @@ export const editReview = (reviewUpdate) => async (dispatch) => {
             reviewState
         })
     })
-    
     const response = await updatedReview.json();
-    console.log("EDIT REV TEST= ",response)
     dispatch(editReviewAO(response));
     return response;
 }

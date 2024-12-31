@@ -44,8 +44,6 @@ const handleToggle = (e) => { //delete event/ toggle
 }
 
 const isFormValid = () => {
-  console.log("Signup form test:", username, password)
-  
     return email && username && firstName && lastName && password && confirmPassword;
 };
 
@@ -76,7 +74,7 @@ const isFormValid = () => {
 /***********************************************************************************************************************************************/
 //*                             HTML
 /***********************************************************************************************************************************************/
-  console.log("TEST LOG")
+  
   return (
     <>
         <button type="button" onClick={handleToggle}>SignUp</button>
@@ -151,5 +149,5 @@ const isFormValid = () => {
     </>
   );
 }
-console.log("TEST LOG")
+
 export default NewSignupFormModal;
