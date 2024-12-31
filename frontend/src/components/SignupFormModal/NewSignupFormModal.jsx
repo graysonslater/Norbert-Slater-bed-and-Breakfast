@@ -38,8 +38,8 @@ const handleToggle = (e) => { //delete event/ toggle
     setUsername("")
     setFirstName()
     setLastName()
-    setPassword()
-    setConfirmPassword()
+    setPassword("")
+    setConfirmPassword("")
     setShowConfirm(!showConfirm)
 }
 

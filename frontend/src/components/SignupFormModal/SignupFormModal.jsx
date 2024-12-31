@@ -32,7 +32,7 @@ function SignupFormModal() {
 /***********************************************************************************************************************************************/
 
   const isFormValid = () => {
-    return email && username.length >= 4 && firstName && lastName && password.length >= 6  && confirmPassword;
+    return email && firstName && lastName && password.length >= 6  && confirmPassword;
   };
 
   //REDIRECT LOGIC
