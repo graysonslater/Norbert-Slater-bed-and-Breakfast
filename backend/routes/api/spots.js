@@ -176,10 +176,10 @@ router.post('/:spotId/reviews', requireAuth, async (req,res) => {
     //find all that spots reviews
     const allReviews = await spot.getReviews();
     //calculate total stars from all reviews
-    const total = allReviews.reduce((sum, review) => sum + review.stars, 0);
+    const total = allReviews.reduce((sum, review) => sum + Number(review.stars),0);
     //calculate new Avg
     const avgRating = Number((total / allReviews.length).toFixed(1));
-    console.log("stars", stars,"TEST REV= ", total, "avg rating= ", typeof avgRating)
+    console.log("total",typeof total,"TEST REV= ", total, "avg rating= ", typeof avgRating)
 
     // Only update if avgRating has changed
     if (spot.avgRating !== avgRating) {
