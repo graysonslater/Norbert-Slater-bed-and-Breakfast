@@ -32,7 +32,7 @@ function AddReviewModal() {
     const toggleModal = () => {
         if (showSubmit) {
             setReview(""); 
-            setStars("");  
+            setStars();  
             setServerErrors([]); 
         }
         setShowSubmit(!showSubmit);
@@ -54,7 +54,7 @@ function AddReviewModal() {
             
             //reset state
             setReview("");
-            setStars("");
+            setStars();
             toggleModal(); 
 
         //ERROR HANDLING
@@ -71,7 +71,7 @@ function AddReviewModal() {
 /***********************************************************************************************************************************************/
 
 const [review, setReview] = useState("");
-const [stars, setStars] = useState();
+const [stars, setStars] = useState(1);
 const [showSubmit, setShowSubmit] = useState(false)
 const [serverErrors, setServerErrors] = useState([]); 
 
