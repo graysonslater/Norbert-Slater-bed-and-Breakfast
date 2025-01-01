@@ -171,7 +171,6 @@ router.post('/:spotId/reviews', requireAuth, async (req,res) => {
     const {review, stars} = req.body;
     //create a new review
     const newReview = await Review.create({spotId, userId, review, stars});
-
     //get the spot
     const spot = await Spot.findByPk(spotId);
     //find all that spots reviews
@@ -180,6 +179,7 @@ router.post('/:spotId/reviews', requireAuth, async (req,res) => {
     const total = allReviews.reduce((sum, review) => sum + review.stars, 0);
     //calculate new Avg
     const avgRating = Number((total / allReviews.length).toFixed(1));
+    console.log("stars", stars,"TEST REV= ", total, "avg rating= ", typeof avgRating)
 
     // Only update if avgRating has changed
     if (spot.avgRating !== avgRating) {
@@ -203,7 +203,7 @@ router.post('/:spotId/reviews', requireAuth, async (req,res) => {
 
 //Get all Reviews by a Spot's id
 router.get('/:spotId/reviews', async (req,res)=>{
-    console.log("BACK END TEST")
+    
     //get spotId from url
     const id = Number(req.params.spotId);
     //check if spot exists
@@ -221,7 +221,7 @@ router.get('/:spotId/reviews', async (req,res)=>{
         ],
         order: [['createdAt', 'DESC']]
     });
-    console.log("BACK END TEST= ", id)
+    
     //check if reviews exist
     if(foundReviews.length === 0) return res.status(200).json({message:"No reviews for this spot"});
 
