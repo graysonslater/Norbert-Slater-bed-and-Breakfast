@@ -60,7 +60,7 @@ export const OneSpot = (spotId) => async (dispatch) => {
         method: "GET"
     });
     const spotData = await spotResponse.json();
-    
+    console.log("STORE SPOT = ", spotData)
     dispatch(getOneSpot(spotData));//the order is very important! it determines how the args are passed to the Action object!!!
     return spotData;
 };
