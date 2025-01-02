@@ -58,7 +58,7 @@ function ManageSpots(){
                                 <button onClick={(e) => {
                                     e.preventDefault(); 
                                     e.stopPropagation(); 
-                                    navigate(`/spots/edit/${spot.id}`);
+                                    navigate(`/spots/${spot.id}/edit`);
                                 }}>Update</button>
                             </div>
                         </Link>
