@@ -27,15 +27,12 @@ function EditSpotModal() {
 /***********************************************************************************************************************************************/
 //*                             Get Spot
 /***********************************************************************************************************************************************/
-
-    useEffect(() =>{
-        dispatch(OneSpot(spotId))
-    }, [dispatch,spotId]) 
     
     const { spot } = useSelector((state) => { 
         // console.log("TEST COMP" , state.spots.spot)
         return { spot: state.spots.spot}; //Reviews is plural!!!
     });
+    console.log("TEST= ",spot.address)
 
 /***********************************************************************************************************************************************/
 //*                             form submission
@@ -79,6 +76,24 @@ function EditSpotModal() {
     const [description, setDescription] = useState(spot.description);
     const [price, setPrice] = useState(spot.price);
     // const [previewImage, setPreviewImage] = useState(spot.previewImage); //!UNSURE HOW TO UPDATE ARRAY OF URLS
+    
+    useEffect(() =>{
+        dispatch(OneSpot(spotId))
+        }, [dispatch]) 
+
+    useEffect(() => {
+        if (spot) {
+            setAddress(spot.address || '');
+            setCity(spot.city || '');
+            setState(spot.state || '');
+            setCountry(spot.country || '');
+            setLat(spot.lat || '');
+            setLng(spot.lng || '');
+            setName(spot.name || '');
+            setDescription(spot.description || '');
+            setPrice(spot.price || '');
+        }
+    }, [spot]);
 
 /***********************************************************************************************************************************************/
 //*                             HTML

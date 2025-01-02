@@ -165,7 +165,6 @@ function GetOneSpot() { //function compnents should be in Pascal case!!
                 <p>Description: {spot.description}</p>
                 <p>
                     Average Rating
-                    <>{console.log("FRONTEND TEST= ", spot.avgRating ,typeof spot.avgRating)}</>
                     <img src="/favicon-16x16.png" alt="Star Rating" />
                     : {spot.numReviews > 0 ? (
                         <>

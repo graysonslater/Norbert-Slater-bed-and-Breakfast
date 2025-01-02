@@ -39,9 +39,7 @@ function EditReviewModal(reviewId) {
     const reviews = useSelector(state => state.reviews.reviewsById.Reviews || []);
     const userReview = reviews.find(review => review.userId === sessionUser.id)
         
-    // useEffect(() => {
-    //     dispatch(reviewsBySpotId(sessionUser.id))   
-    //    }, [dispatch]);
+    
 
 /***********************************************************************************************************************************************/
 //*                             setting state
@@ -51,14 +49,25 @@ function EditReviewModal(reviewId) {
         const [reviewState, setReview] = useState(userReview.review);
         const [showSubmit, setShowSubmit] = useState(false);
 
+        useEffect(() => {
+            dispatch(reviewsBySpotId(spotId))   
+           }, [dispatch]);
+
+           useEffect(() => {
+            if (userReview) {
+                setStars(userReview.stars || 0);
+                setReview(userReview.review || '');
+            }
+        }, [userReview]);
+
 /***********************************************************************************************************************************************/
 //*                             form submission
 /***********************************************************************************************************************************************/
 
     const toggleModal = () => {
         if (showSubmit) {
-            setReview(userReview.review); 
-            setStars(userReview.stars);  
+            //setReview(userReview.review); 
+            //setStars(userReview.stars);  
         }
         setShowSubmit(!showSubmit);
     };
@@ -82,8 +91,9 @@ function EditReviewModal(reviewId) {
 
 /***********************************************************************************************************************************************/
 //*                             HTML
-/***********************************************************************************************************************************************/
-    return (
+/***********************************************************************************************************************************************/    
+console.log("REV STATE:", reviewState)
+return (
         <>
             <button type="button" className='editReviewButton' onClick={toggleModal}>edit Review</button>
             {showSubmit && (
